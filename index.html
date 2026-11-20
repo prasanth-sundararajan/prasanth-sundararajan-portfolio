@@ -77,7 +77,7 @@ section{padding:96px 0}
 .quote p{font-size:16px;margin-bottom:16px}
 .quote footer{font-size:13px;color:var(--muted)}
 .about{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start}.photo{width:min(320px,100%);aspect-ratio:1;border-radius:28px;overflow:hidden;margin-bottom:28px;padding:3px;background:var(--grad);box-shadow:0 20px 60px rgba(139,92,246,.35)}.photo img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:25px}
-.about p{color:var(--muted);margin-bottom:14px}.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.svc .step b{display:block;font-size:26px;margin-bottom:6px}
+.about p{color:var(--muted);margin-bottom:14px}.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}.svc .step b{display:block;font-size:26px;margin-bottom:6px}
 @media (max-width:900px){.about{grid-template-columns:1fr;gap:20px}.svc{grid-template-columns:repeat(2,1fr)}}@media (max-width:480px){.svc{grid-template-columns:1fr}}
 .quote.add{display:grid;place-items:center;text-align:center;border-style:dashed;color:var(--muted)}
 /* contact */
@@ -124,6 +124,7 @@ section{padding:96px 0}
   <div class="svc">
     <div class="step reveal"><b>⚡</b><h3>AI Automation</h3><p>LLM pipelines that read, tag and summarise feedback, documents and data, with reports delivered on schedule.</p></div>
     <div class="step reveal"><b>🤖</b><h3>Agentic AI</h3><p>Multi-agent systems on CrewAI, AutoGen and LangChain that plan, use tools, check their own work and deliver results.</p></div>
+    <div class="step reveal"><b>🧠</b><h3>AI Agents</h3><p>Custom AI agents for your business: support assistants, sales and lead agents, and workflow bots that connect to your tools and data.</p></div>
     <div class="step reveal"><b>🧩</b><h3>SaaS Development</h3><p>Full-stack products with FastAPI, React and PostgreSQL, including auth, payments, real-time updates and dashboards.</p></div>
     <div class="step reveal"><b>🚀</b><h3>Deploy &amp; DevOps</h3><p>Docker, HTTPS, CI/CD and VPS hosting, so your product is live and stays live.</p></div>
   </div>
