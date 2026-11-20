@@ -142,3 +142,75 @@
   }, { threshold: 0.25 });
   vids.forEach(function (v) { io.observe(v); });
 })();
+
+
+// Discovery-call booker (guest booking, no account).
+(function () {
+  var root = document.querySelector('.booker');
+  if (!root) return;
+  var api = root.dataset.api, biz = root.dataset.business, svc = root.dataset.service, slug = root.dataset.slug;
+  var daysEl = root.querySelector('.booker-days'), timesEl = root.querySelector('.booker-times');
+  var form = root.querySelector('.booker-form'), msg = root.querySelector('.booker-msg');
+  var picked = null;
+  var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  root.querySelector('.booker-tz').textContent = '(your time: ' + tz + ')';
+  function ymd(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+  function select(list, btn) { list.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-selected', b === btn ? 'true' : 'false'); }); }
+  function fmtTime(iso) { return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); }
+  function fmtFull(iso) { return new Date(iso).toLocaleString([], { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' }); }
+  function hint(text) { timesEl.innerHTML = ''; var p = document.createElement('p'); p.className = 'booker-hint'; p.textContent = text; timesEl.appendChild(p); }
+  function loadTimes(date) {
+    picked = null; form.hidden = true;
+    hint('Loading open times...');
+    fetch(api + '/businesses/' + biz + '/slots?service_id=' + svc + '&date=' + date)
+      .then(function (r) { if (!r.ok) throw new Error('slots'); return r.json(); })
+      .then(function (d) {
+        var slots = Array.isArray(d) ? d : d.slots;
+        if (!slots.length) { hint('No open times this day. Please try another day.'); return; }
+        timesEl.innerHTML = '';
+        slots.forEach(function (s) {
+          var b = document.createElement('button'); b.type = 'button'; b.textContent = fmtTime(s.start_at); b.setAttribute('role', 'option');
+          b.addEventListener('click', function () {
+            select(timesEl, b); picked = s.start_at; form.hidden = false; msg.textContent = '';
+            root.querySelector('.booker-picked').textContent = 'Selected: ' + fmtFull(s.start_at) + ' (' + tz + ')';
+          });
+          timesEl.appendChild(b);
+        });
+      })
+      .catch(function () { hint('Could not load times. Please refresh, or use the contact form below.'); });
+  }
+  var today = new Date();
+  for (var i = 0; i < 14; i++) {
+    (function (d) {
+      var b = document.createElement('button'); b.type = 'button'; b.setAttribute('role', 'option');
+      var w = document.createElement('span'); w.textContent = d.toLocaleDateString([], { weekday: 'short' });
+      var n = document.createElement('b'); n.textContent = d.getDate();
+      var m = document.createElement('span'); m.textContent = d.toLocaleDateString([], { month: 'short' });
+      b.appendChild(w); b.appendChild(n); b.appendChild(m);
+      b.addEventListener('click', function () { select(daysEl, b); loadTimes(ymd(d)); });
+      daysEl.appendChild(b);
+    })(new Date(today.getFullYear(), today.getMonth(), today.getDate() + i));
+  }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = new FormData(form), name = String(f.get('name') || '').trim(), email = String(f.get('email') || '').trim();
+    if (!picked) { msg.textContent = 'Please choose a time.'; return; }
+    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { msg.textContent = 'Please enter your name and a valid email.'; return; }
+    var btn = form.querySelector('button[type=submit]'); btn.disabled = true; msg.textContent = 'Booking...';
+    fetch(api + '/public/businesses/' + slug + '/guest-bookings', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ service_id: Number(svc), start_at: picked, name: name, email: email, topic: String(f.get('topic') || '').trim(), website: String(f.get('website') || '') })
+    }).then(function (r) {
+      if (r.ok) {
+        form.hidden = true; daysEl.parentNode.hidden = true; timesEl.parentNode.hidden = true;
+        root.querySelector('.booker-done').hidden = false;
+        root.querySelector('.booker-done-text').textContent = 'Your call is confirmed for ' + fmtFull(picked) + ' (' + tz + ').';
+        return;
+      }
+      btn.disabled = false;
+      if (r.status === 409) { msg.textContent = 'Sorry, that time was just taken. Please pick another.'; var sel = daysEl.querySelector('[aria-selected="true"]'); if (sel) sel.click(); }
+      else if (r.status === 429) { msg.textContent = 'Too many attempts. Please try again later, or use the contact form.'; }
+      else { msg.textContent = 'Something went wrong. Please try again, or use the contact form below.'; }
+    }).catch(function () { btn.disabled = false; msg.textContent = 'Network error. Please try again.'; });
+  });
+})();
