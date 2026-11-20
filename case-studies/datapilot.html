@@ -169,6 +169,17 @@
   </div>
 </div></section>
 
+<section id="guardrails"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">Guardrails &amp; safety</div><h2>Built to be <span class="grad">safe in production</span></h2><p>Live, tested protections in the deployed app, not just a demo.</p></div>
+  <div class="ag-grid">
+<div class="step reveal"><h3>Code sandbox</h3><p>Agent-written Python is checked with an AST allow/deny list, then run with no secrets, a CPU, memory and file-size budget, and network and outside-folder access blocked.</p></div>
+<div class="step reveal"><h3>Input limits</h3><p>CSV/XLSX only, 10 MB, row and column caps and a question length limit. Off-topic or harmful requests are declined.</p></div>
+<div class="step reveal"><h3>Prompt-injection defence</h3><p>File names and cell values are wrapped as untrusted data, and every agent is told to ignore instructions found inside the data.</p></div>
+<div class="step reveal"><h3>Cost & abuse caps</h3><p>Limits on agent turns, tokens per call and run time, 5 runs per hour per visitor and a daily cap.</p></div>
+<div class="step reveal"><h3>Locked-down container</h3><p>Runs as non-root with all Linux capabilities dropped. Answers are format-checked and keys and server paths are scrubbed.</p></div>
+  </div>
+</div></section>
+
 <section id="stack"><div class="wrap">
   <div class="head reveal"><div class="eyebrow">05 · Tech stack</div><h2>Built with</h2></div>
   <div class="pills reveal"><span>AutoGen AgentChat</span><span>SelectorGroupChat</span><span>OpenAI gpt-4.1</span><span>Python</span><span>pandas</span><span>matplotlib</span><span>Docker sandbox</span><span>Streamlit</span></div>

@@ -181,6 +181,17 @@
   </div>
 </div></section>
 
+<section id="guardrails"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">Guardrails &amp; safety</div><h2>Built to be <span class="grad">safe in production</span></h2><p>Live, tested protections in the deployed app, not just a demo.</p></div>
+  <div class="ag-grid">
+<div class="step reveal"><h3>Payments you can trust</h3><p>Bookings are confirmed only by a signature-verified, idempotent Dodo webhook, never by the browser. Refunds are recorded before they're sent and retried automatically.</p></div>
+<div class="step reveal"><h3>No double-booking</h3><p>A PostgreSQL exclusion constraint makes overlapping bookings impossible, even under concurrent requests. Unpaid holds expire after 10 minutes.</p></div>
+<div class="step reveal"><h3>Abuse limits</h3><p>Rate limits on login, sign-up, booking and contact, shared across workers through Redis, plus request size caps.</p></div>
+<div class="step reveal"><h3>Tenant isolation</h3><p>Every owner and staff query is scoped to their own business, with tests proving one business can't read another's data.</p></div>
+<div class="step reveal"><h3>Hardened delivery</h3><p>Strict Content-Security-Policy, HSTS, single-use WebSocket tickets, encrypted Google tokens and CSRF-protected OAuth.</p></div>
+  </div>
+</div></section>
+
 <section id="stack"><div class="wrap">
   <div class="head reveal"><div class="eyebrow">05 · Tech stack</div><h2>Built with</h2></div>
   <div class="pills reveal"><span>Python 3.11</span><span>FastAPI</span><span>SQLAlchemy</span><span>Alembic</span><span>PostgreSQL</span><span>React</span><span>TypeScript</span><span>Vite</span><span>WebSockets</span><span>Dodo Payments</span><span>Google OAuth</span><span>Google Calendar API</span><span>APScheduler</span><span>pytest</span><span>Docker</span></div>

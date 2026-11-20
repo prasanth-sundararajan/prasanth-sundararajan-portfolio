@@ -177,6 +177,17 @@
   </div>
 </div></section>
 
+<section id="guardrails"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">Guardrails &amp; safety</div><h2>Built to be <span class="grad">safe in production</span></h2><p>Live, tested protections in the deployed app, not just a demo.</p></div>
+  <div class="ag-grid">
+<div class="step reveal"><h3>Input limits</h3><p>CSV only, up to 5 MB and 500 reviews per run. Control characters are stripped and very long reviews are truncated.</p></div>
+<div class="step reveal"><h3>Prompt-injection defence</h3><p>Reviews are treated strictly as data. Injection phrases are neutralised and flagged, so a review can't instruct the model.</p></div>
+<div class="step reveal"><h3>Validated output</h3><p>Labels and scores are checked against a schema, invalid answers are retried and then marked for review, and HTML is never rendered raw.</p></div>
+<div class="step reveal"><h3>Cost & abuse caps</h3><p>Token and timeout limits per call, 5 analyses per hour per visitor and a daily cap for the whole app.</p></div>
+<div class="step reveal"><h3>Safe handling</h3><p>Harmful content is skipped before reaching the model, and API keys are masked in messages and logs.</p></div>
+  </div>
+</div></section>
+
 <section id="stack"><div class="wrap">
   <div class="head reveal"><div class="eyebrow">05 · Tech stack</div><h2>Built with</h2></div>
   <div class="pills reveal"><span>LangChain (LCEL)</span><span>Pydantic</span><span>OpenAI gpt-4o-mini</span><span>Gemini / Claude supported</span><span>Streamlit</span><span>pandas</span><span>Plotly</span><span>pytest</span><span>Docker</span><span>Caddy</span></div>
