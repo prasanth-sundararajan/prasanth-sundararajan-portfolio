@@ -236,3 +236,25 @@ details p{color:var(--muted);margin-top:10px;font-size:15px}
 
 .budget-row{display:grid;grid-template-columns:minmax(150px,.9fr) minmax(0,1.2fr);gap:8px}.budget-row .currency-pick{padding-left:12px;padding-right:30px;font-size:14px}
 @media (max-width:480px){.budget-row{grid-template-columns:1fr}}
+
+/* ---- Layout rhythm: one standard vertical gap between every section ---- */
+:root{--section-y:clamp(56px,7vw,88px);--head-gap:clamp(28px,3.5vw,40px)}
+section{padding:var(--section-y) 0}
+section+section{padding-top:0}
+.hero{min-height:0;padding:clamp(72px,10vw,120px) 0 var(--section-y)}
+.hero+section,.built+section{padding-top:var(--section-y)}
+.built{padding:0}
+.head{margin-bottom:var(--head-gap)}
+.head h2{margin:12px 0 10px}
+.sub{margin:var(--head-gap) 0 16px}
+.about{grid-template-columns:minmax(220px,320px) 1fr;gap:clamp(28px,5vw,64px);align-items:center}
+.about .photo{margin-bottom:0}
+.about .head{margin-bottom:18px}
+.project{margin-bottom:var(--section-y)}
+.project:last-child{margin-bottom:0}
+.foot{margin-top:0}
+.contact{padding:clamp(40px,6vw,64px) clamp(18px,4vw,40px)}
+@media (max-width:900px){.about{grid-template-columns:1fr}.about .photo{width:min(260px,100%)}}
+.cs section{padding:clamp(40px,5vw,60px) 0}
+.cs section+section{padding-top:0}
+.ag-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
