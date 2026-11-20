@@ -1,4 +1,4 @@
-# PrasanthAI Portfolio
+# Prasanth Sundararajan Portfolio
 
 Portfolio of Prasanth S.P (Kowsalya Groups). It tells the story of four live products.
 
