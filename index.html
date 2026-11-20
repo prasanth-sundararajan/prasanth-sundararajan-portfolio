@@ -79,6 +79,16 @@ section{padding:96px 0}
 .about{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start}.photo{width:min(320px,100%);aspect-ratio:1;border-radius:28px;overflow:hidden;margin-bottom:28px;padding:3px;background:var(--grad);box-shadow:0 20px 60px rgba(139,92,246,.35)}.photo img{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:25px}
 .about p{color:var(--muted);margin-bottom:14px}.svc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px}.svc .step b{display:block;font-size:26px;margin-bottom:6px}
 @media (max-width:900px){.about{grid-template-columns:1fr;gap:20px}.svc{grid-template-columns:repeat(2,1fr)}}@media (max-width:480px){.svc{grid-template-columns:1fr}}
+.ag-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.ag-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;counter-reset:f}
+.ag-flow div{position:relative;padding:20px;border-radius:18px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(236,72,153,.08),rgba(139,92,246,.06))}
+.ag-flow div::before{counter-increment:f;content:"0" counter(f);font:800 13px "Plus Jakarta Sans";color:#f0abfc}
+.ag-flow h3{font-size:17px;margin:8px 0 6px}.ag-flow p{color:var(--muted);font-size:14px}
+.sub{font:700 22px "Plus Jakarta Sans";margin:56px 0 20px}
+.pills{display:flex;flex-wrap:wrap;gap:10px}.pills span{padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:var(--panel);font-size:14px}
+details{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:18px 22px;margin-bottom:12px}
+summary{cursor:pointer;font-weight:600;list-style:none}summary::after{content:"+";float:right;color:#f0abfc}details[open] summary::after{content:"−"}
+details p{color:var(--muted);margin-top:10px;font-size:15px}
 .quote.add{display:grid;place-items:center;text-align:center;border-style:dashed;color:var(--muted)}
 /* contact */
 .contact{text-align:center;padding:72px 24px;border-radius:28px;border:1px solid var(--line);background:radial-gradient(80% 120% at 50% 0%,rgba(139,92,246,.35),rgba(236,72,153,.08) 60%,transparent)}
@@ -98,7 +108,7 @@ section{padding:96px 0}
 <body>
 <header><div class="wrap"><nav aria-label="Main">
   <a class="logo" href="#top"><i>P</i><span>Prasanth Sundararajan<small>KOWSALYA GROUPS</small></span></a>
-  <div class="links"><a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a><a href="#impact">Impact</a><a href="#process">Process</a><a href="#voices">Voices</a></div>
+  <div class="links"><a href="#about">About</a><a href="#services">Services</a><a href="#agentic">Agentic AI</a><a href="#work">Work</a><a href="#impact">Impact</a><a href="#process">Process</a><a href="#voices">Voices</a></div>
   <a class="btn btn-primary" href="#contact">Let's talk →</a>
 </nav></div></header>
 
@@ -107,7 +117,7 @@ section{padding:96px 0}
   <div class="eyebrow reveal">Founder &amp; Lead Engineer · Kowsalya Groups</div>
   <h1 class="reveal">I turn messy business problems into <span class="grad">live AI products</span> people can use today.</h1>
   <p class="reveal">I'm Prasanth S.P. At Kowsalya Groups I design, build and ship agentic AI, generative AI and full-stack SaaS, from the first idea to a secure production deployment. Every project below is live. Click in and try it.</p>
-  <div class="cta reveal"><a class="btn btn-primary" href="#work">Explore the work →</a><a class="btn btn-ghost" href="#contact">Start a project</a></div>
+  <div class="cta reveal"><a class="btn btn-primary" href="#work">Explore the work →</a><a class="btn btn-ghost" href="#agentic">Agentic AI services</a></div>
 </div></section>
 
 <section id="about"><div class="wrap about">
@@ -128,6 +138,54 @@ section{padding:96px 0}
     <div class="step reveal"><b>🧩</b><h3>SaaS Development</h3><p>Full-stack products with FastAPI, React and PostgreSQL, including auth, payments, real-time updates and dashboards.</p></div>
     <div class="step reveal"><b>🚀</b><h3>Deploy &amp; DevOps</h3><p>Docker, HTTPS, CI/CD and VPS hosting, so your product is live and stays live.</p></div>
   </div>
+</div></section>
+
+<section id="agentic"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">Agentic AI</div><h2>AI that doesn't just answer. <span class="grad">It gets the work done.</span></h2>
+  <p>A chatbot replies. An AI agent <b>acts</b>: it plans the steps, uses your tools, checks its own output, and hands back a finished result. I design and ship these systems for teams that want hours of manual work done automatically, reliably and safely.</p></div>
+
+  <h3 class="sub reveal">What I build</h3>
+  <div class="ag-grid">
+    <div class="step reveal"><h3>Research agents</h3><p>Search the web, scrape sources, compare competitors and write cited reports, as in LaunchScout.</p></div>
+    <div class="step reveal"><h3>Data analyst agents</h3><p>Turn plain-English questions into code, run it safely, fix errors and return charts and answers, as in DataPilot.</p></div>
+    <div class="step reveal"><h3>Document &amp; feedback agents</h3><p>Read reviews, tickets, emails or PDFs, then tag, prioritise and summarise into reports, as in ReviewLens.</p></div>
+    <div class="step reveal"><h3>Customer-facing agents</h3><p>Support and booking assistants that answer from your knowledge base and take actions like booking, checking status or escalating.</p></div>
+    <div class="step reveal"><h3>Workflow automation agents</h3><p>Agents wired into your CRM, sheets, email and APIs that move data and trigger the next step without manual hand-offs.</p></div>
+    <div class="step reveal"><h3>RAG knowledge engines</h3><p>Ask your own documents anything, with answers grounded in your data and linked to sources.</p></div>
+  </div>
+
+  <h3 class="sub reveal">How I build reliable agents</h3>
+  <div class="ag-flow">
+    <div class="reveal"><h3>Goal &amp; guardrails</h3><p>Define what "done" means, what the agent may and may not do, and when a human approves.</p></div>
+    <div class="reveal"><h3>Plan &amp; roles</h3><p>Split the job across specialised agents: researcher, coder, reviewer, writer.</p></div>
+    <div class="reveal"><h3>Tools &amp; data</h3><p>Connect search, APIs, databases and code execution in a sandbox, with least-privilege keys.</p></div>
+    <div class="reveal"><h3>Self-check</h3><p>Reviewer agents and validation catch mistakes before you see them, and agents retry their own errors.</p></div>
+    <div class="reveal"><h3>Test &amp; ship</h3><p>Evaluated on real examples, logged, dockerised and deployed behind HTTPS.</p></div>
+  </div>
+
+  <h3 class="sub reveal">Frameworks &amp; stack</h3>
+  <div class="pills reveal"><span>CrewAI</span><span>AutoGen</span><span>LangChain</span><span>RAG</span><span>OpenAI / Claude / open-source LLMs</span><span>Python</span><span>FastAPI</span><span>React</span><span>PostgreSQL</span><span>Docker</span><span>Streamlit</span></div>
+
+  <h3 class="sub reveal">Where agents pay off fastest</h3>
+  <div class="pills reveal"><span>E-commerce &amp; retail</span><span>Salons, clinics &amp; local services</span><span>Startups &amp; product launches</span><span>Marketing &amp; research teams</span><span>Finance &amp; operations reporting</span><span>Customer support</span></div>
+
+  <h3 class="sub reveal">How we can work together</h3>
+  <div class="ag-grid">
+    <div class="step reveal"><em>01</em><h3>Free discovery call</h3><p>We map the task you want automated and check whether an agent is the right fit. No obligation.</p></div>
+    <div class="step reveal"><em>02</em><h3>Pilot agent</h3><p>A working prototype on your real data for one workflow, so you see results before scaling.</p></div>
+    <div class="step reveal"><em>03</em><h3>Production rollout</h3><p>A hardened, monitored, deployed agent integrated with your tools, plus a handover guide.</p></div>
+  </div>
+
+  <h3 class="sub reveal">FAQ</h3>
+  <div class="reveal">
+    <details><summary>What's the difference between a chatbot and an AI agent?</summary><p>A chatbot answers questions. An agent completes tasks: it plans, calls tools and APIs, checks its work and delivers an output, like a report, a booking or an updated record.</p></details>
+    <details><summary>Will the agent make mistakes?</summary><p>All LLMs can. That's why I add reviewer steps, validation, retries and human approval for sensitive actions, and test on your real examples before go-live.</p></details>
+    <details><summary>Is my data safe?</summary><p>Agents get only the access they need, keys stay on the server, code runs in a sandbox, and everything runs on infrastructure you control where required.</p></details>
+    <details><summary>Can it connect to the tools I already use?</summary><p>Yes. Anything with an API or export, such as Google Sheets, CRMs, email, databases and websites, can become a tool for the agent.</p></details>
+    <details><summary>Do you work with freelance or international clients?</summary><p>Yes. I work remotely with clients anywhere. Start with a free discovery call.</p></details>
+  </div>
+
+  <div class="cta reveal" style="margin-top:36px"><a class="btn btn-primary" href="#contact">Book a free discovery call →</a><a class="btn btn-ghost" href="#work">See live agents</a></div>
 </div></section>
 
 <section id="impact"><div class="wrap">
