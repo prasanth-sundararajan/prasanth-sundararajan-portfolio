@@ -75,6 +75,8 @@ section{padding:96px 0}
 .quote{padding:28px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(139,92,246,.10),rgba(255,255,255,.02))}
 .quote p{font-size:16px;margin-bottom:16px}
 .quote footer{font-size:13px;color:var(--muted)}
+.about{display:grid;grid-template-columns:1fr 1.3fr;gap:48px;align-items:start}.about p{color:var(--muted);margin-bottom:14px}.svc{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.svc .step b{display:block;font-size:26px;margin-bottom:6px}
+@media (max-width:900px){.about{grid-template-columns:1fr;gap:20px}.svc{grid-template-columns:repeat(2,1fr)}}@media (max-width:480px){.svc{grid-template-columns:1fr}}
 .quote.add{display:grid;place-items:center;text-align:center;border-style:dashed;color:var(--muted)}
 /* contact */
 .contact{text-align:center;padding:72px 24px;border-radius:28px;border:1px solid var(--line);background:radial-gradient(80% 120% at 50% 0%,rgba(139,92,246,.35),rgba(236,72,153,.08) 60%,transparent)}
@@ -94,7 +96,7 @@ section{padding:96px 0}
 <body>
 <header><div class="wrap"><nav aria-label="Main">
   <a class="logo" href="#top"><i>P</i><span>PrasanthAI<small>KOWSALYA GROUPS</small></span></a>
-  <div class="links"><a href="#work">Work</a><a href="#impact">Impact</a><a href="#process">Process</a><a href="#voices">Voices</a></div>
+  <div class="links"><a href="#about">About</a><a href="#services">Services</a><a href="#work">Work</a><a href="#impact">Impact</a><a href="#process">Process</a><a href="#voices">Voices</a></div>
   <a class="btn btn-primary" href="#contact">Let's talk →</a>
 </nav></div></header>
 
@@ -104,6 +106,25 @@ section{padding:96px 0}
   <h1 class="reveal">I turn messy business problems into <span class="grad">live AI products</span> people can use today.</h1>
   <p class="reveal">I'm Prasanth S.P. At Kowsalya Groups I design, build and ship agentic AI, generative AI and full-stack SaaS, from the first idea to a secure production deployment. Every project below is live. Click in and try it.</p>
   <div class="cta reveal"><a class="btn btn-primary" href="#work">Explore the work →</a><a class="btn btn-ghost" href="#contact">Start a project</a></div>
+</div></section>
+
+<section id="about"><div class="wrap about">
+  <div class="head reveal"><div class="eyebrow">About</div><h2>Engineer first, <span class="grad">founder by choice</span></h2></div>
+  <div class="reveal">
+    <p>I'm Prasanth S.P, founder of Kowsalya Groups. I build software that does real work for businesses: AI agents that research, analyse and report, and SaaS products that take bookings and payments on their own.</p>
+    <p>I care about the whole path from idea to production: the right architecture, tested code, secure payments and auth, and a deployment people can open in a browser. Everything in this portfolio was built and shipped that way, and all of it is live.</p>
+    <div class="cta"><a class="btn btn-ghost" href="https://www.linkedin.com/in/prasanth-s-a093a7109/" target="_blank" rel="noopener">Connect on LinkedIn ↗</a></div>
+  </div>
+</div></section>
+
+<section id="services"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">Services</div><h2>What I can <span class="grad">build for you</span></h2><p>The same skills behind the live products below.</p></div>
+  <div class="svc">
+    <div class="step reveal"><b>⚡</b><h3>AI Automation</h3><p>LLM pipelines that read, tag and summarise feedback, documents and data, with reports delivered on schedule.</p></div>
+    <div class="step reveal"><b>🤖</b><h3>Agentic AI</h3><p>Multi-agent systems on CrewAI, AutoGen and LangChain that plan, use tools, check their own work and deliver results.</p></div>
+    <div class="step reveal"><b>🧩</b><h3>SaaS Development</h3><p>Full-stack products with FastAPI, React and PostgreSQL, including auth, payments, real-time updates and dashboards.</p></div>
+    <div class="step reveal"><b>🚀</b><h3>Deploy &amp; DevOps</h3><p>Docker, HTTPS, CI/CD and VPS hosting, so your product is live and stays live.</p></div>
+  </div>
 </div></section>
 
 <section id="impact"><div class="wrap">
@@ -207,12 +228,12 @@ section{padding:96px 0}
     <div class="eyebrow" style="justify-content:center">Let's build</div>
     <h2>Got a problem worth <span class="grad">automating?</span></h2>
     <p>Tell me what slows your business down. I'll come back with a plan for an AI agent, a pipeline or a full product that solves it.</p>
-    <div class="cta"><a class="btn btn-primary" href="mailto:prasanthspbio@gmail.com?subject=Project%20enquiry">Email me →</a><a class="btn btn-ghost" href="https://github.com/prasanth-sundararajan" target="_blank" rel="noopener">GitHub</a></div>
+    <div class="cta"><a class="btn btn-primary" href="mailto:prasanthspbio@gmail.com?subject=Project%20enquiry">Email me →</a><a class="btn btn-ghost" href="https://www.linkedin.com/in/prasanth-s-a093a7109/" target="_blank" rel="noopener">LinkedIn</a><a class="btn btn-ghost" href="https://github.com/prasanth-sundararajan" target="_blank" rel="noopener">GitHub</a></div>
   </div>
 </div></section>
 </main>
 
-<footer class="foot"><div class="wrap"><span>© 2026 PrasanthAI · Kowsalya Groups</span><span>All projects live at kowsalyagroups.com/techstack</span></div></footer>
+<footer class="foot"><div class="wrap"><span>© 2026 PrasanthAI · Kowsalya Groups</span><span><a href="https://www.linkedin.com/in/prasanth-s-a093a7109/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/prasanth-sundararajan" target="_blank" rel="noopener">GitHub</a> · <a href="#contact">Contact</a></span></div></footer>
 
 <script>
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
