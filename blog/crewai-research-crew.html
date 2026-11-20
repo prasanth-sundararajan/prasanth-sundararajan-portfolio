@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Designing a CrewAI research crew that cites its sources · Prasanth Sundararajan</title>
+<meta name="description" content="Agent roles, task context, expected_output contracts and a price guardrail: how LaunchScout&#x27;s four CrewAI agents produce a sourced competitor report and a 30-day launch plan.">
+<meta name="author" content="Prasanth Sundararajan">
+<meta name="theme-color" content="#07060f">
+<link rel="canonical" href="https://www.kowsalyagroups.com/prasanth/portfolio/blog/crewai-research-crew.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Prasanth Sundararajan · Kowsalya Groups">
+<meta property="og:title" content="Designing a CrewAI research crew that cites its sources · Prasanth Sundararajan">
+<meta property="og:description" content="Agent roles, task context, expected_output contracts and a price guardrail: how LaunchScout&#x27;s four CrewAI agents produce a sourced competitor report and a 30-day launch plan.">
+<meta property="og:url" content="https://www.kowsalyagroups.com/prasanth/portfolio/blog/crewai-research-crew.html">
+<meta property="og:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Prasanth Sundararajan, Agentic AI developer, Kowsalya Groups">
+<meta property="og:locale" content="en_IN">
+<meta property="article:published_time" content="2026-11-20">
+<meta property="article:author" content="Prasanth Sundararajan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Designing a CrewAI research crew that cites its sources · Prasanth Sundararajan">
+<meta name="twitter:description" content="Agent roles, task context, expected_output contracts and a price guardrail: how LaunchScout&#x27;s four CrewAI agents produce a sourced competitor report and a 30-day launch plan.">
+<meta name="twitter:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Designing a CrewAI research crew that cites its sources",
+ "description": "Agent roles, task context, expected_output contracts and a price guardrail: how LaunchScout's four CrewAI agents produce a sourced competitor report and a 30-day launch plan.",
+ "url": "https://www.kowsalyagroups.com/prasanth/portfolio/blog/crewai-research-crew.html",
+ "mainEntityOfPage": "https://www.kowsalyagroups.com/prasanth/portfolio/blog/crewai-research-crew.html",
+ "image": "https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png",
+ "datePublished": "2026-11-20",
+ "dateModified": "2026-11-20",
+ "inLanguage": "en",
+ "wordCount": 947,
+ "keywords": "CrewAI, Multi-agent, Research, Agentic AI developer, AI automation freelancer, India",
+ "author": {
+  "@type": "Person",
+  "name": "Prasanth Sundararajan",
+  "alternateName": "Prasanth S.P",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/",
+  "jobTitle": "Founder & Lead Engineer, Agentic AI developer",
+  "worksFor": {
+   "@type": "Organization",
+   "name": "Kowsalya Groups"
+  },
+  "sameAs": [
+   "https://www.linkedin.com/in/prasanth-s-a093a7109/",
+   "https://github.com/prasanth-sundararajan"
+  ]
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "Kowsalya Groups",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/"
+ }
+}
+</script>
+</head>
+<body data-root="../">
+<header><div class="wrap"><nav aria-label="Main">
+  <a class="logo" href="../index.html"><i>P</i><span>Prasanth Sundararajan<small>KOWSALYA GROUPS</small></span></a>
+  <div class="links"><a href="../index.html#about">About</a><a href="../index.html#services">Services</a><a href="../index.html#agentic">Agentic AI</a><a href="../index.html#work">Work</a><a href="../blog/index.html" aria-current="page">Insights</a><a href="../index.html#process">Process</a></div>
+  <a class="btn btn-primary" href="../index.html#contact">Let's talk →</a>
+</nav></div></header>
+
+<main id="top">
+<article class="article"><div class="wrap"><div class="prose">
+  <div class="crumbs"><a href="../index.html">Home</a> / <a href="index.html">Insights</a></div>
+  <div class="eyebrow">CrewAI · Multi-agent · Research</div>
+  <h1>Designing a CrewAI research crew that cites its sources</h1>
+  <p class="meta">By Prasanth Sundararajan · <time datetime="2026-11-20">20 November 2026</time> · 4 min read</p>
+  <p class="lead"><a href="../case-studies/launchscout.html">LaunchScout</a> takes a business idea, a city and a target customer, and returns a competitor report with prices, customer complaints, the market gap, a recommended positioning and a 30-day launch plan. Every price links to the page it was found on. Here is how the CrewAI crew behind it is put together, and the guardrails that keep it honest.</p>
+<h2>Why four agents and not one</h2>
+<p>A single agent with a long prompt can do research, but it blends gathering and judging. It finds two competitors, then starts recommending a strategy based on half the picture. Splitting the job lets each agent be measured against a narrow goal:</p>
+<ul><li><strong>Market Researcher</strong>: find 3–5 real, operating competitors with prices, offers and sales channels, each with a source URL. Tools: web search and a website scraper.</li><li><strong>Review Analyst</strong>: for each competitor, what customers praise and what they complain about, quoting real reviews with sources. Tools: search, scraper and Google Maps reviews, lowest-rated first.</li><li><strong>Strategy Analyst</strong>: a comparison matrix, the single clearest market gap, and a recommended price and positioning. No tools.</li><li><strong>Report Writer</strong>: a founder-friendly six-section report, including the 30-day launch plan, saved as Markdown. Tool: a file writer.</li></ul>
+<p>Giving the Strategy Analyst no tools is intentional. It cannot go and find new “facts”; it can only reason from evidence the researchers handed over.</p>
+<h2>Role, goal and backstory do real work</h2>
+<p>In CrewAI the backstory is not decoration. It is where you encode the habits you want. The researcher's backstory says it never trusts a number it cannot link to:</p>
+<pre><code>researcher = Agent(
+    role=&quot;Market Researcher&quot;,
+    goal=(
+        &quot;Find 3 to 5 real, currently operating competitors for &#x27;{idea}&#x27; in {city}, &quot;
+        &quot;with their prices, offers and sales channels, each backed by a source URL.&quot;
+    ),
+    backstory=(
+        &quot;You spent eight years as a field researcher for a retail consultancy in India. &quot;
+        &quot;You never trust a number you cannot link to, and you write down the exact URL &quot;
+        &quot;where you saw every price.&quot;
+    ),
+    tools=[search, scrape],
+    max_iter=15,
+)</code></pre>
+<p>All inputs are <code>{placeholders}</code>, so the same crew works for any idea and any city without code changes. Sample runs cover millet meal boxes in Coimbatore and at-home pet grooming in Bengaluru.</p>
+<h2>Sequential tasks, explicit context</h2>
+<p>The crew runs with <code>Process.sequential</code>. Each task lists the earlier tasks it depends on as <code>context</code>, so the Strategy Analyst sees both the competitor table and the review analysis, and the writer sees everything:</p>
+<pre><code># abridged
+strategy_task = Task(
+    description=&quot;Compare the competitors and find the clearest market gap ...&quot;,
+    expected_output=&quot;A &#x27;## Market Gap&#x27; section and a &#x27;## Recommended Positioning&#x27; section ...&quot;,
+    agent=strategist,
+    context=[research_task, review_task],
+)
+
+crew = Crew(
+    agents=[researcher, review_analyst, strategist, writer],
+    tasks=[research_task, review_task, strategy_task, report_task],
+    process=Process.sequential,
+)</code></pre>
+<p>A hierarchical mode, where a manager LLM plans and delegates, is available as a toggle. For a pipeline with a natural order like this one, sequential was more predictable and easier to debug.</p>
+<h2>expected_output is a contract</h2>
+<p>Vague expected outputs produce vague reports. Each task spells out the exact format. The research task, for example, requires a Markdown table with the columns <em>Competitor | Offering | Price | Offers / Subscription | Sales channels | Source URLs</em>, at least three rows, each with a price (or “not listed”) and at least one full <code>https://</code> URL, plus a list of anything it could not verify. A precise format also makes the output machine-checkable, which the next step relies on.</p>
+<h2>A guardrail for invented prices</h2>
+<p>The most damaging failure in research agents is a believable made-up number. CrewAI task guardrails let you inspect an output and send it back with feedback. LaunchScout's price guardrail parses the competitor table and checks every price against the text of the pages and search results the agents actually read during that run:</p>
+<pre><code># simplified from report_utils.price_guardrail
+def guardrail(output):
+    text = str(output.raw)
+    table = competitor_table(text)
+    checked = verify_prices(text, evidence)   # evidence = pages read this run
+    problems = []
+    unbacked = [name for name, r in checked.items() if r[&quot;missing&quot;]]
+    if unbacked:
+        problems.append(&quot;These prices do not appear in any page read in this run: &quot;
+                        + &quot;, &quot;.join(unbacked) + &quot;. Copy the exact price or replace the competitor.&quot;)
+    if len(table[&quot;complete&quot;]) &lt; 3:
+        problems.append(&quot;At least 3 competitors need both a found price and a source.&quot;)
+    return (False, &quot; &quot;.join(problems)) if problems else (True, output)</code></pre>
+<p>The feedback is specific enough to act on, so the agent goes back to the competitor's own listing instead of guessing again. After a couple of rejections the output is let through rather than failing the whole crew, and the app's quality checklist flags whatever is left: six sections, at least three competitors, and a price and source on every row.</p>
+<h2>Tools, fallbacks and cost</h2>
+<p>Search uses Serper for Google results and Google Maps reviews. Without a Serper key the crew falls back to DuckDuckGo, so it still runs, just with less review data. Because every run spends API credit, the public app counts runs per day under a file lock, so two people pressing Run together cannot both slip past the limit, and failed runs count too.</p>
+<h2>Showing the work</h2>
+<p>Multi-agent runs take minutes, and a spinner for that long feels broken. The app shows four status cards, one per agent, plus a live step log of searches and pages read, driven by CrewAI's step callbacks and event bus. Watching the researcher open a competitor's page builds more trust than any disclaimer.</p>
+<h2>Takeaways</h2>
+<ul><li>Split gathering from judging; give the judge no tools.</li><li>Write <code>expected_output</code> as a format you can parse and check.</li><li>Verify numbers against evidence collected in the same run, and send specific feedback when they fail.</li><li>Design for cost: fallbacks, run limits and visible progress.</li></ul>
+  <div class="callout">
+    <h2>See it running</h2>
+    <p>This post is based on LaunchScout, which is live. Read the case study, try the app, or talk to me about building something similar for your business.</p>
+    <div class="cta"><a class="btn btn-primary" href="../case-studies/launchscout.html">Read the LaunchScout case study →</a><a class="btn btn-ghost" href="https://www.kowsalyagroups.com/techstack/appointment-booking/b/prasanth-sundararajan" target="_blank" rel="noopener">Book a free discovery call ↗</a></div>
+  </div>
+</div></div></article>
+
+<section id="more"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">More insights</div><h2>Keep reading</h2></div>
+  <div class="posts"><a class="post-card" href="self-correcting-data-agent.html"><span class="meta">AutoGen · Agentic AI · pandas</span><h2>How I built a self-correcting data agent with AutoGen</h2><p>Planner, coder, sandboxed executor and reviewer: how DataPilot catches silent wrong numbers and fixes its own code.</p><span class="more">Read →</span></a><a class="post-card" href="no-double-booking.html"><span class="meta">PostgreSQL · FastAPI · Payments</span><h2>No double-bookings: Postgres exclusion constraints, slot holds and webhook-confirmed payments</h2><p>An exclusion constraint, a 10-minute hold, WebSockets and webhook-only confirmation: the booking core of SlotEase.</p><span class="more">Read →</span></a></div>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap"><span>© 2026 Prasanth Sundararajan · Kowsalya Groups</span><span><a href="../index.html#work">Work</a> · <a href="../blog/index.html">Insights</a> · <a href="https://www.linkedin.com/in/prasanth-s-a093a7109/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/prasanth-sundararajan" target="_blank" rel="noopener">GitHub</a> · <a href="../index.html#contact">Contact</a></span></div></footer>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

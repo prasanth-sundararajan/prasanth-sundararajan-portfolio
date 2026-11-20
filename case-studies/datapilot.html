@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DataPilot case study: self-correcting AutoGen data analyst · Prasanth Sundararajan</title>
+<meta name="description" content="DataPilot is a multi-agent AutoGen system that plans, writes and runs pandas code in a sandbox, fixes its own errors and gets reviewed before answering. Agentic AI case study by Prasanth Sundararajan.">
+<meta name="author" content="Prasanth Sundararajan">
+<meta name="theme-color" content="#07060f">
+<link rel="canonical" href="https://www.kowsalyagroups.com/prasanth/portfolio/case-studies/datapilot.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prasanth Sundararajan · Kowsalya Groups">
+<meta property="og:title" content="DataPilot case study: self-correcting AutoGen data analyst · Prasanth Sundararajan">
+<meta property="og:description" content="DataPilot is a multi-agent AutoGen system that plans, writes and runs pandas code in a sandbox, fixes its own errors and gets reviewed before answering. Agentic AI case study by Prasanth Sundararajan.">
+<meta property="og:url" content="https://www.kowsalyagroups.com/prasanth/portfolio/case-studies/datapilot.html">
+<meta property="og:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Prasanth Sundararajan, Agentic AI developer, Kowsalya Groups">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DataPilot case study: self-correcting AutoGen data analyst · Prasanth Sundararajan">
+<meta name="twitter:description" content="DataPilot is a multi-agent AutoGen system that plans, writes and runs pandas code in a sandbox, fixes its own errors and gets reviewed before answering. Agentic AI case study by Prasanth Sundararajan.">
+<meta name="twitter:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CreativeWork",
+ "name": "DataPilot case study",
+ "headline": "DataPilot case study: self-correcting AutoGen data analyst",
+ "description": "DataPilot is a multi-agent AutoGen system that plans, writes and runs pandas code in a sandbox, fixes its own errors and gets reviewed before answering. Agentic AI case study by Prasanth Sundararajan.",
+ "url": "https://www.kowsalyagroups.com/prasanth/portfolio/case-studies/datapilot.html",
+ "image": "https://www.kowsalyagroups.com/prasanth/portfolio/assets/datapilot.jpg",
+ "author": {
+  "@type": "Person",
+  "name": "Prasanth Sundararajan",
+  "alternateName": "Prasanth S.P",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/",
+  "jobTitle": "Founder & Lead Engineer, Agentic AI developer",
+  "worksFor": {
+   "@type": "Organization",
+   "name": "Kowsalya Groups"
+  },
+  "sameAs": [
+   "https://www.linkedin.com/in/prasanth-s-a093a7109/",
+   "https://github.com/prasanth-sundararajan"
+  ]
+ },
+ "creator": {
+  "@type": "Person",
+  "name": "Prasanth Sundararajan",
+  "alternateName": "Prasanth S.P",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/",
+  "jobTitle": "Founder & Lead Engineer, Agentic AI developer",
+  "worksFor": {
+   "@type": "Organization",
+   "name": "Kowsalya Groups"
+  },
+  "sameAs": [
+   "https://www.linkedin.com/in/prasanth-s-a093a7109/",
+   "https://github.com/prasanth-sundararajan"
+  ]
+ },
+ "dateModified": "2026-11-20",
+ "inLanguage": "en",
+ "keywords": "AutoGen AgentChat, SelectorGroupChat, OpenAI gpt-4.1, Python, pandas, matplotlib, Agentic AI developer, AI automation freelancer, India",
+ "about": {
+  "@type": "SoftwareApplication",
+  "name": "DataPilot",
+  "url": "https://www.kowsalyagroups.com/techstack/datapilot/",
+  "applicationCategory": "BusinessApplication"
+ }
+}
+</script>
+</head>
+<body data-root="../">
+<header><div class="wrap"><nav aria-label="Main">
+  <a class="logo" href="../index.html"><i>P</i><span>Prasanth Sundararajan<small>KOWSALYA GROUPS</small></span></a>
+  <div class="links"><a href="../index.html#about">About</a><a href="../index.html#services">Services</a><a href="../index.html#agentic">Agentic AI</a><a href="../index.html#work">Work</a><a href="../blog/index.html">Insights</a><a href="../index.html#process">Process</a></div>
+  <a class="btn btn-primary" href="../index.html#contact">Let's talk →</a>
+</nav></div></header>
+
+<main id="top" class="cs">
+<div class="cs-hero"><div class="wrap">
+  <div class="crumbs reveal"><a href="../index.html">Home</a> / <a href="../index.html#work">Work</a> / DataPilot</div>
+  <div class="grid">
+    <div class="reveal">
+      <div class="eyebrow">Case study · Agentic AI · AutoGen</div>
+      <h1>DataPilot: a <span class="grad">self-correcting</span> AI data analyst</h1>
+      <p class="lede">Ask a business question in plain English about a CSV or Excel file. A team of AutoGen agents plans the analysis, writes Python, runs it in a sandbox, fixes its own errors and gets reviewed, then returns an answer with charts, a re-runnable analysis.py and a one-page PDF.</p>
+      <div class="cta"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/datapilot/" target="_blank" rel="noopener">Open live app ↗</a><a class="btn btn-ghost" href="https://github.com/prasanth-sundararajan/datapilot" target="_blank" rel="noopener">Code on GitHub</a></div>
+    </div>
+    <a class="shot reveal" href="https://www.kowsalyagroups.com/techstack/datapilot/" target="_blank" rel="noopener"><img src="../assets/datapilot.jpg" alt="DataPilot live app screenshot" width="1440" height="900"></a>
+  </div>
+  <dl class="facts reveal"><div><dt>Type</dt><dd>Agentic AI app</dd></div><div><dt>My role</dt><dd>Agent design, build, deployment</dd></div><div><dt>Core stack</dt><dd>AutoGen · pandas · Docker</dd></div><div><dt>Status</dt><dd>Live in production</dd></div></dl>
+</div></div>
+
+<section id="challenge"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">01 · Challenge</div><h2>The problem worth solving</h2></div>
+  <div class="body reveal"><p>Business teams have data and questions, but they wait days for an analyst to write the code. Handing the job to an LLM sounds easy, and on clean demo data it mostly works.</p><p>On real exports it fails quietly. Three date formats in one column, prices stored as text, “North” and “north ” counted as different regions: the code runs, nothing crashes, and the answer is confidently wrong. The real problem was turning silent wrong numbers into errors an agent can see and fix.</p></div>
+</div></section>
+
+<section id="approach"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">02 · Approach</div><h2>How I built it</h2></div>
+  <ul class="ticks reveal">
+<li><b>One job per agent.</b> The Planner sees only the column schema and five sample rows and writes a 3–6 step plan. The Coder writes one complete pandas and matplotlib script. The Executor runs it. The Reviewer checks every part of the question against the printed numbers and chart labels.</li>
+<li><b>Routing by rules.</b> A <code>SelectorGroupChat</code> with a rule-based selector: an Executor error goes back to the Coder, a clean run goes to the Reviewer, and Reviewer feedback goes to the Coder. LLM-based selection and round-robin are available as alternatives.</li>
+<li><b>A sandbox that criticises.</b> Code runs in a sandbox folder or a Docker container with unsafe calls such as subprocess, network access and file deletes blocked. A <code>data_check()</code> gate raises when more than 2% of rows are dropped, dates fail to parse or swap day and month, or one value is spelled two ways. Every chart must have a title, axis labels and units.</li>
+<li><b>Bounded by design.</b> The run stops on the Reviewer's APPROVED or after 12 messages, so it can never loop forever. The public app also caps live runs per day.</li>
+<li><b>Human in the loop.</b> A <code>UserProxyAgent</code> lets you approve the answer or ask a follow-up that continues the same session.</li>
+  </ul>
+</div></section>
+
+<section id="architecture"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">03 · Architecture</div><h2>How the pieces fit</h2></div>
+  <figure class="reveal"><div class="diagram"><svg viewBox="0 0 960 412" role="img" aria-labelledby="dg-title dg-desc" xmlns="http://www.w3.org/2000/svg"><title id="dg-title">DataPilot agent loop</title><desc id="dg-desc">A question goes to the Planner, then the Coder, then the Executor which runs the code in a sandbox. Errors go back to the Coder. Successful runs go to the Reviewer, which sends feedback to the Coder or approves the final answer with charts, analysis.py and a PDF.</desc><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#c084fc"/></marker><marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker></defs>
+<text class="dg-l" x="480" y="40" text-anchor="middle">SelectorGroupChat with rule-based routing · stops on APPROVED or after 12 messages</text>
+<rect class="dg-box" x="10" y="160" width="130" height="96" rx="14"/>
+<text class="dg-t" x="75.0" y="196" text-anchor="middle">Question</text>
+<text class="dg-s" x="75.0" y="216" text-anchor="middle">CSV / Excel +</text>
+<text class="dg-s" x="75.0" y="234" text-anchor="middle">plain English</text>
+<rect class="dg-hl" x="172" y="160" width="130" height="96" rx="14"/>
+<text class="dg-t" x="237.0" y="196" text-anchor="middle">Planner</text>
+<text class="dg-s" x="237.0" y="216" text-anchor="middle">schema + 5 rows</text>
+<text class="dg-s" x="237.0" y="234" text-anchor="middle">3–6 step plan</text>
+<rect class="dg-hl" x="334" y="160" width="130" height="96" rx="14"/>
+<text class="dg-t" x="399.0" y="196" text-anchor="middle">Coder</text>
+<text class="dg-s" x="399.0" y="216" text-anchor="middle">pandas +</text>
+<text class="dg-s" x="399.0" y="234" text-anchor="middle">matplotlib script</text>
+<rect class="dg-hl" x="496" y="160" width="130" height="96" rx="14"/>
+<text class="dg-t" x="561.0" y="196" text-anchor="middle">Executor</text>
+<text class="dg-s" x="561.0" y="216" text-anchor="middle">sandbox run</text>
+<text class="dg-s" x="561.0" y="234" text-anchor="middle">STATUS: OK / ERROR</text>
+<rect class="dg-hl" x="658" y="160" width="130" height="96" rx="14"/>
+<text class="dg-t" x="723.0" y="196" text-anchor="middle">Reviewer</text>
+<text class="dg-s" x="723.0" y="216" text-anchor="middle">checks numbers</text>
+<text class="dg-s" x="723.0" y="234" text-anchor="middle">and chart labels</text>
+<rect class="dg-out" x="820" y="160" width="130" height="96" rx="14"/>
+<text class="dg-t" x="885.0" y="196" text-anchor="middle">Answer</text>
+<text class="dg-s" x="885.0" y="216" text-anchor="middle">charts · analysis.py</text>
+<text class="dg-s" x="885.0" y="234" text-anchor="middle">one-page PDF</text>
+<path class="dg-a" d="M140 208 H170" marker-end="url(#ah)"/>
+<path class="dg-a" d="M302 208 H332" marker-end="url(#ah)"/>
+<path class="dg-a" d="M464 208 H494" marker-end="url(#ah)"/>
+<path class="dg-a" d="M626 208 H656" marker-end="url(#ah)"/>
+<path class="dg-a" d="M788 208 H818" marker-end="url(#ah)"/>
+<text class="dg-l" x="805" y="150" text-anchor="middle">APPROVED</text>
+<path class="dg-a pink" d="M561 160 C561 82 399 82 399 158" marker-end="url(#ahp)"/>
+<text class="dg-l" x="480" y="100" text-anchor="middle">STATUS: ERROR → rewrite the code</text>
+<path class="dg-a" d="M723 256 C723 342 399 342 399 258" marker-end="url(#ah)"/>
+<text class="dg-l" x="561" y="352" text-anchor="middle">FEEDBACK: concrete fixes</text>
+<path class="dg-a dash" d="M885 256 V398 H75 V258" marker-end="url(#ah)"/>
+<text class="dg-l" x="480" y="390" text-anchor="middle">you approve, or ask a follow-up in the same session (UserProxyAgent)</text></svg></div><figcaption class="diagram-note">The pink loop is self-correction from real tracebacks and data-check failures; the purple loop is the Reviewer sending concrete fixes.</figcaption></figure>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">04 · Agent roles</div><h2>What each agent does</h2></div>
+  <div class="ag-grid">
+<div class="step reveal"><h3>Planner</h3><p>AssistantAgent. Reads the question and schema, never the full data, and writes the plan.</p></div>
+<div class="step reveal"><h3>Coder</h3><p>AssistantAgent. Writes one complete script, and rewrites it on an error or on feedback.</p></div>
+<div class="step reveal"><h3>Executor</h3><p>CodeExecutorAgent with a local or Docker executor. Tags STATUS: OK or ERROR, saves analysis.py, tracks charts.</p></div>
+<div class="step reveal"><h3>Reviewer</h3><p>AssistantAgent. Checks numbers and labels, then replies FEEDBACK: or the final answer plus APPROVED.</p></div>
+<div class="step reveal"><h3>You</h3><p>UserProxyAgent. Approve the result or ask a follow-up in the same session.</p></div>
+<div class="step reveal"><h3>Outputs</h3><p>Plain-English answer, PNG charts, a re-runnable analysis.py and a one-page PDF report.</p></div>
+  </div>
+</div></section>
+
+<section id="stack"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">05 · Tech stack</div><h2>Built with</h2></div>
+  <div class="pills reveal"><span>AutoGen AgentChat</span><span>SelectorGroupChat</span><span>OpenAI gpt-4.1</span><span>Python</span><span>pandas</span><span>matplotlib</span><span>Docker sandbox</span><span>Streamlit</span></div>
+</div></section>
+
+<section id="result"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">06 · Result</div><h2>What it delivers</h2></div>
+  <figure class="demo" hidden><video src="../assets/videos/datapilot.mp4" poster="../assets/datapilot.jpg" muted playsinline controls preload="none"></video><figcaption>DataPilot demo</figcaption></figure>
+  <div class="body reveal"><p>In six final live runs on a deliberately messy Excel export, DataPilot answered six of six correctly, and four of the six fixed at least one real error on their own. Before the sandbox checks existed, the same runs were often approved with wrong numbers.</p><p>Re-running the saved analysis.py gives exactly the same numbers, so every answer can be checked and reused.</p><p>Deep dive: <a class="grad" href="../blog/self-correcting-data-agent.html">How I built a self-correcting data agent with AutoGen →</a></p></div>
+  <div class="cta reveal mt"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/datapilot/" target="_blank" rel="noopener">Try DataPilot live ↗</a><a class="btn btn-ghost" href="https://github.com/prasanth-sundararajan/datapilot" target="_blank" rel="noopener">Read the code</a></div>
+</div></section>
+
+<div class="wrap">
+  <nav class="pager" aria-label="More case studies">
+    <a href="reviewlens.html"><small>← Previous case study</small><strong>ReviewLens</strong></a>
+    <a class="next" href="launchscout.html"><small>Next case study →</small><strong>LaunchScout</strong></a>
+  </nav>
+  <div class="contact reveal">
+    <div class="eyebrow center">Let's build</div>
+    <h2>Want something like <span class="grad">DataPilot</span>?</h2>
+    <p>Tell me the workflow you want automated or the product you want shipped. A free discovery call is the quickest way to find out if it is a fit.</p>
+    <div class="cta"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/appointment-booking/b/prasanth-sundararajan" target="_blank" rel="noopener">Book a free discovery call ↗</a><a class="btn btn-ghost" href="../index.html#contact">Send a message</a></div>
+  </div>
+</div>
+</main>
+
+<footer class="foot"><div class="wrap"><span>© 2026 Prasanth Sundararajan · Kowsalya Groups</span><span><a href="../index.html#work">Work</a> · <a href="../blog/index.html">Insights</a> · <a href="https://www.linkedin.com/in/prasanth-s-a093a7109/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/prasanth-sundararajan" target="_blank" rel="noopener">GitHub</a> · <a href="../index.html#contact">Contact</a></span></div></footer>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

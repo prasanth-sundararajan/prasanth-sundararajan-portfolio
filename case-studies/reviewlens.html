@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReviewLens case study: LangChain customer feedback analyzer · Prasanth Sundararajan</title>
+<meta name="description" content="ReviewLens turns hundreds of English, Tamil and Tanglish customer reviews into tagged, prioritised insights and a weekly report with LangChain structured output. Built by Prasanth Sundararajan.">
+<meta name="author" content="Prasanth Sundararajan">
+<meta name="theme-color" content="#07060f">
+<link rel="canonical" href="https://www.kowsalyagroups.com/prasanth/portfolio/case-studies/reviewlens.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prasanth Sundararajan · Kowsalya Groups">
+<meta property="og:title" content="ReviewLens case study: LangChain customer feedback analyzer · Prasanth Sundararajan">
+<meta property="og:description" content="ReviewLens turns hundreds of English, Tamil and Tanglish customer reviews into tagged, prioritised insights and a weekly report with LangChain structured output. Built by Prasanth Sundararajan.">
+<meta property="og:url" content="https://www.kowsalyagroups.com/prasanth/portfolio/case-studies/reviewlens.html">
+<meta property="og:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Prasanth Sundararajan, Agentic AI developer, Kowsalya Groups">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ReviewLens case study: LangChain customer feedback analyzer · Prasanth Sundararajan">
+<meta name="twitter:description" content="ReviewLens turns hundreds of English, Tamil and Tanglish customer reviews into tagged, prioritised insights and a weekly report with LangChain structured output. Built by Prasanth Sundararajan.">
+<meta name="twitter:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CreativeWork",
+ "name": "ReviewLens case study",
+ "headline": "ReviewLens case study: LangChain customer feedback analyzer",
+ "description": "ReviewLens turns hundreds of English, Tamil and Tanglish customer reviews into tagged, prioritised insights and a weekly report with LangChain structured output. Built by Prasanth Sundararajan.",
+ "url": "https://www.kowsalyagroups.com/prasanth/portfolio/case-studies/reviewlens.html",
+ "image": "https://www.kowsalyagroups.com/prasanth/portfolio/assets/reviewlens.png",
+ "author": {
+  "@type": "Person",
+  "name": "Prasanth Sundararajan",
+  "alternateName": "Prasanth S.P",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/",
+  "jobTitle": "Founder & Lead Engineer, Agentic AI developer",
+  "worksFor": {
+   "@type": "Organization",
+   "name": "Kowsalya Groups"
+  },
+  "sameAs": [
+   "https://www.linkedin.com/in/prasanth-s-a093a7109/",
+   "https://github.com/prasanth-sundararajan"
+  ]
+ },
+ "creator": {
+  "@type": "Person",
+  "name": "Prasanth Sundararajan",
+  "alternateName": "Prasanth S.P",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/",
+  "jobTitle": "Founder & Lead Engineer, Agentic AI developer",
+  "worksFor": {
+   "@type": "Organization",
+   "name": "Kowsalya Groups"
+  },
+  "sameAs": [
+   "https://www.linkedin.com/in/prasanth-s-a093a7109/",
+   "https://github.com/prasanth-sundararajan"
+  ]
+ },
+ "dateModified": "2026-11-20",
+ "inLanguage": "en",
+ "keywords": "LangChain (LCEL), Pydantic, OpenAI gpt-4o-mini, Gemini / Claude supported, Streamlit, pandas, Agentic AI developer, AI automation freelancer, India",
+ "about": {
+  "@type": "SoftwareApplication",
+  "name": "ReviewLens",
+  "url": "https://www.kowsalyagroups.com/techstack/ReviewLens/",
+  "applicationCategory": "BusinessApplication"
+ }
+}
+</script>
+</head>
+<body data-root="../">
+<header><div class="wrap"><nav aria-label="Main">
+  <a class="logo" href="../index.html"><i>P</i><span>Prasanth Sundararajan<small>KOWSALYA GROUPS</small></span></a>
+  <div class="links"><a href="../index.html#about">About</a><a href="../index.html#services">Services</a><a href="../index.html#agentic">Agentic AI</a><a href="../index.html#work">Work</a><a href="../blog/index.html">Insights</a><a href="../index.html#process">Process</a></div>
+  <a class="btn btn-primary" href="../index.html#contact">Let's talk →</a>
+</nav></div></header>
+
+<main id="top" class="cs">
+<div class="cs-hero"><div class="wrap">
+  <div class="crumbs reveal"><a href="../index.html">Home</a> / <a href="../index.html#work">Work</a> / ReviewLens</div>
+  <div class="grid">
+    <div class="reveal">
+      <div class="eyebrow">Case study · Generative AI · LangChain</div>
+      <h1>ReviewLens: a week of reviews, <span class="grad">read in five minutes</span></h1>
+      <p class="lede">A LangChain pipeline that reads every customer review, in English, Tamil or Tanglish, tags and scores it, and writes a weekly report a manager can act on in about five minutes.</p>
+      <div class="cta"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/ReviewLens/" target="_blank" rel="noopener">Open live app ↗</a><a class="btn btn-ghost" href="https://github.com/prasanth-sundararajan/reviewlens" target="_blank" rel="noopener">Code on GitHub</a></div>
+    </div>
+    <a class="shot reveal" href="https://www.kowsalyagroups.com/techstack/ReviewLens/" target="_blank" rel="noopener"><img src="../assets/reviewlens.png" alt="ReviewLens live app screenshot" width="1440" height="900"></a>
+  </div>
+  <dl class="facts reveal"><div><dt>Type</dt><dd>Generative AI app</dd></div><div><dt>My role</dt><dd>Design, build, deployment</dd></div><div><dt>Core stack</dt><dd>LangChain · Streamlit · pandas</dd></div><div><dt>Status</dt><dd>Live in production</dd></div></dl>
+</div></div>
+
+<section id="challenge"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">01 · Challenge</div><h2>The problem worth solving</h2></div>
+  <div class="body reveal"><p>A restaurant chain or online store gets hundreds of reviews every week from Google, Zomato, Swiggy and Amazon, in English, Tamil and Tanglish. Read by hand, urgent complaints such as food safety issues, wrong orders or rude staff can sit unseen for days.</p><p>Worse, nobody can say with numbers what customers complain about most. An LLM can read the reviews, but free-text answers are hard to count, and a model that also does the arithmetic will sooner or later report numbers that do not match the data.</p></div>
+</div></section>
+
+<section id="approach"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">02 · Approach</div><h2>How I built it</h2></div>
+  <ul class="ticks reveal">
+<li><b>Structured output for every review.</b> A <code>ChatPromptTemplate | llm.with_structured_output(ReviewAnalysis)</code> chain returns a Pydantic model: sentiment, category, urgency, language, a one-line summary and a suggested reply. Fields are <code>Literal</code> enums, so invalid values are rejected.</li>
+<li><b>Retry, then flag.</b> Invalid outputs are retried twice. Anything still failing is marked <code>needs_review</code> instead of crashing the run.</li>
+<li><b>Numbers from pandas, never from the LLM.</b> Sentiment split, categories, urgency and platforms are counted in code, so the report always matches the table.</li>
+<li><b>Map → reduce report.</b> Per-review summaries are grouped by category and condensed in chunks, then one chain writes the top complaints, top praise, the urgent count and three action items.</li>
+<li><b>Batched and swappable.</b> <code>chain.batch(..., max_concurrency=8)</code> processes a typical week of about 250 reviews in roughly a minute, and the provider (OpenAI, Gemini, Anthropic or an offline mock) is one environment variable.</li>
+  </ul>
+</div></section>
+
+<section id="architecture"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">03 · Architecture</div><h2>How the pieces fit</h2></div>
+  <figure class="reveal"><div class="diagram"><svg viewBox="0 0 960 360" role="img" aria-labelledby="dg-title dg-desc" xmlns="http://www.w3.org/2000/svg"><title id="dg-title">ReviewLens pipeline</title><desc id="dg-desc">Reviews CSV is validated, each review is tagged and scored by a LangChain structured-output chain, pandas aggregates the counts, a map-reduce chain writes the weekly report, and a Streamlit dashboard shows insights, exports CSV and emails the report on Mondays.</desc><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#c084fc"/></marker><marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker></defs>
+<rect class="dg-box" x="20" y="40" width="200" height="100" rx="14"/>
+<text class="dg-t" x="120.0" y="78" text-anchor="middle">CSV upload</text>
+<text class="dg-s" x="120.0" y="98" text-anchor="middle">Google · Zomato · Swiggy</text>
+<text class="dg-s" x="120.0" y="116" text-anchor="middle">Amazon reviews</text>
+<rect class="dg-box" x="265" y="40" width="200" height="100" rx="14"/>
+<text class="dg-t" x="365.0" y="78" text-anchor="middle">Validate</text>
+<text class="dg-s" x="365.0" y="98" text-anchor="middle">drop empty and</text>
+<text class="dg-s" x="365.0" y="116" text-anchor="middle">duplicate rows</text>
+<rect class="dg-hl" x="510" y="40" width="200" height="100" rx="14"/>
+<text class="dg-t" x="610.0" y="69" text-anchor="middle">LangChain tagging</text>
+<text class="dg-s" x="610.0" y="90" text-anchor="middle">sentiment · category</text>
+<text class="dg-s" x="610.0" y="107" text-anchor="middle">urgency · language</text>
+<text class="dg-s" x="610.0" y="124" text-anchor="middle">summary · reply</text>
+<rect class="dg-box" x="755" y="40" width="200" height="100" rx="14"/>
+<text class="dg-t" x="855.0" y="78" text-anchor="middle">pandas counts</text>
+<text class="dg-s" x="855.0" y="98" text-anchor="middle">numbers from code,</text>
+<text class="dg-s" x="855.0" y="116" text-anchor="middle">never from the LLM</text>
+<rect class="dg-hl" x="755" y="240" width="200" height="100" rx="14"/>
+<text class="dg-t" x="855.0" y="269" text-anchor="middle">Weekly report</text>
+<text class="dg-s" x="855.0" y="290" text-anchor="middle">map → reduce chain</text>
+<text class="dg-s" x="855.0" y="307" text-anchor="middle">complaints · praise</text>
+<text class="dg-s" x="855.0" y="324" text-anchor="middle">3 action items</text>
+<rect class="dg-out" x="510" y="240" width="200" height="100" rx="14"/>
+<text class="dg-t" x="610.0" y="278" text-anchor="middle">Insights dashboard</text>
+<text class="dg-s" x="610.0" y="298" text-anchor="middle">Plotly charts</text>
+<text class="dg-s" x="610.0" y="316" text-anchor="middle">HIGH-urgency filter</text>
+<rect class="dg-box" x="265" y="240" width="200" height="100" rx="14"/>
+<text class="dg-t" x="365.0" y="278" text-anchor="middle">Export &amp; schedule</text>
+<text class="dg-s" x="365.0" y="298" text-anchor="middle">Excel-ready CSV</text>
+<text class="dg-s" x="365.0" y="316" text-anchor="middle">Monday email report</text>
+<rect class="dg-box" x="20" y="240" width="200" height="100" rx="14"/>
+<text class="dg-t" x="120.0" y="278" text-anchor="middle">Next week</text>
+<text class="dg-s" x="120.0" y="298" text-anchor="middle">saved week →</text>
+<text class="dg-s" x="120.0" y="316" text-anchor="middle">trend arrows ▲▼</text>
+<path class="dg-a" d="M220 90 H263" marker-end="url(#ah)"/>
+<path class="dg-a" d="M465 90 H508" marker-end="url(#ah)"/>
+<path class="dg-a" d="M710 90 H753" marker-end="url(#ah)"/>
+<path class="dg-a" d="M900 140 V238" marker-end="url(#ah)"/>
+<text class="dg-l" x="892" y="194" text-anchor="end">aggregates</text>
+<path class="dg-a dash" d="M610 140 V188 H810 V238" marker-end="url(#ah)"/>
+<text class="dg-l" x="706" y="180" text-anchor="middle">per-review summaries</text>
+<text class="dg-l" x="610" y="28" text-anchor="middle">Pydantic Literal enums · retry ×2 → needs_review</text>
+<path class="dg-a" d="M755 290 H712" marker-end="url(#ah)"/>
+<path class="dg-a" d="M510 290 H467" marker-end="url(#ah)"/>
+<path class="dg-a" d="M265 290 H222" marker-end="url(#ah)"/></svg></div><figcaption class="diagram-note">The LLM classifies and writes; pandas counts. That split is what keeps the report&#x27;s numbers honest.</figcaption></figure>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">04 · Key features</div><h2>What it does</h2></div>
+  <div class="ag-grid">
+<div class="step reveal"><h3>Upload &amp; validation</h3><p>Empty and duplicate rows are dropped before any LLM call, and a review limit protects the API budget.</p></div>
+<div class="step reveal"><h3>HIGH-urgency filter</h3><p>The reviews that need a reply today, such as health, refund, rude staff or wrong order, in one list.</p></div>
+<div class="step reveal"><h3>Weekly report</h3><p>Top complaints, top praise, the urgent count and three concrete action items.</p></div>
+<div class="step reveal"><h3>Trend vs last week</h3><p>Save a week and the next report shows ▲▼ movement automatically.</p></div>
+<div class="step reveal"><h3>Replies in the customer&#x27;s language</h3><p>Suggested replies in Tamil for Tamil reviews and in Tanglish for Tanglish ones.</p></div>
+<div class="step reveal"><h3>Monday email + CSV</h3><p>The saved report and an Excel-ready enriched CSV are emailed every Monday.</p></div>
+  </div>
+</div></section>
+
+<section id="stack"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">05 · Tech stack</div><h2>Built with</h2></div>
+  <div class="pills reveal"><span>LangChain (LCEL)</span><span>Pydantic</span><span>OpenAI gpt-4o-mini</span><span>Gemini / Claude supported</span><span>Streamlit</span><span>pandas</span><span>Plotly</span><span>pytest</span><span>Docker</span><span>Caddy</span></div>
+</div></section>
+
+<section id="result"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">06 · Result</div><h2>What it delivers</h2></div>
+  <figure class="demo" hidden><video src="../assets/videos/reviewlens.mp4" poster="../assets/reviewlens.png" muted playsinline controls preload="none"></video><figcaption>ReviewLens demo</figcaption></figure>
+  <div class="body reveal"><p>A manager reads one page instead of hundreds of reviews and knows what to fix this week. Urgent reviews surface with a ready-to-edit reply, and every number in the report comes from code.</p><p>The app has 15 offline tests that run without an API key, and it is live behind HTTPS with automatic certificates.</p></div>
+  <div class="cta reveal mt"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/ReviewLens/" target="_blank" rel="noopener">Try ReviewLens live ↗</a><a class="btn btn-ghost" href="https://github.com/prasanth-sundararajan/reviewlens" target="_blank" rel="noopener">Read the code</a></div>
+</div></section>
+
+<div class="wrap">
+  <nav class="pager" aria-label="More case studies">
+    <a href="slotease.html"><small>← Previous case study</small><strong>SlotEase</strong></a>
+    <a class="next" href="datapilot.html"><small>Next case study →</small><strong>DataPilot</strong></a>
+  </nav>
+  <div class="contact reveal">
+    <div class="eyebrow center">Let's build</div>
+    <h2>Want something like <span class="grad">ReviewLens</span>?</h2>
+    <p>Tell me the workflow you want automated or the product you want shipped. A free discovery call is the quickest way to find out if it is a fit.</p>
+    <div class="cta"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/appointment-booking/b/prasanth-sundararajan" target="_blank" rel="noopener">Book a free discovery call ↗</a><a class="btn btn-ghost" href="../index.html#contact">Send a message</a></div>
+  </div>
+</div>
+</main>
+
+<footer class="foot"><div class="wrap"><span>© 2026 Prasanth Sundararajan · Kowsalya Groups</span><span><a href="../index.html#work">Work</a> · <a href="../blog/index.html">Insights</a> · <a href="https://www.linkedin.com/in/prasanth-s-a093a7109/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/prasanth-sundararajan" target="_blank" rel="noopener">GitHub</a> · <a href="../index.html#contact">Contact</a></span></div></footer>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

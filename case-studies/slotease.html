@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SlotEase case study: booking SaaS with FastAPI, React and PostgreSQL · Prasanth Sundararajan</title>
+<meta name="description" content="How SlotEase prevents double-bookings with a PostgreSQL exclusion constraint, slot holds, WebSockets and webhook-confirmed Dodo Payments deposits. Built by Prasanth Sundararajan, Kowsalya Groups.">
+<meta name="author" content="Prasanth Sundararajan">
+<meta name="theme-color" content="#07060f">
+<link rel="canonical" href="https://www.kowsalyagroups.com/prasanth/portfolio/case-studies/slotease.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Prasanth Sundararajan · Kowsalya Groups">
+<meta property="og:title" content="SlotEase case study: booking SaaS with FastAPI, React and PostgreSQL · Prasanth Sundararajan">
+<meta property="og:description" content="How SlotEase prevents double-bookings with a PostgreSQL exclusion constraint, slot holds, WebSockets and webhook-confirmed Dodo Payments deposits. Built by Prasanth Sundararajan, Kowsalya Groups.">
+<meta property="og:url" content="https://www.kowsalyagroups.com/prasanth/portfolio/case-studies/slotease.html">
+<meta property="og:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Prasanth Sundararajan, Agentic AI developer, Kowsalya Groups">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SlotEase case study: booking SaaS with FastAPI, React and PostgreSQL · Prasanth Sundararajan">
+<meta name="twitter:description" content="How SlotEase prevents double-bookings with a PostgreSQL exclusion constraint, slot holds, WebSockets and webhook-confirmed Dodo Payments deposits. Built by Prasanth Sundararajan, Kowsalya Groups.">
+<meta name="twitter:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CreativeWork",
+ "name": "SlotEase case study",
+ "headline": "SlotEase case study: booking SaaS with FastAPI, React and PostgreSQL",
+ "description": "How SlotEase prevents double-bookings with a PostgreSQL exclusion constraint, slot holds, WebSockets and webhook-confirmed Dodo Payments deposits. Built by Prasanth Sundararajan, Kowsalya Groups.",
+ "url": "https://www.kowsalyagroups.com/prasanth/portfolio/case-studies/slotease.html",
+ "image": "https://www.kowsalyagroups.com/prasanth/portfolio/assets/slotease.png",
+ "author": {
+  "@type": "Person",
+  "name": "Prasanth Sundararajan",
+  "alternateName": "Prasanth S.P",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/",
+  "jobTitle": "Founder & Lead Engineer, Agentic AI developer",
+  "worksFor": {
+   "@type": "Organization",
+   "name": "Kowsalya Groups"
+  },
+  "sameAs": [
+   "https://www.linkedin.com/in/prasanth-s-a093a7109/",
+   "https://github.com/prasanth-sundararajan"
+  ]
+ },
+ "creator": {
+  "@type": "Person",
+  "name": "Prasanth Sundararajan",
+  "alternateName": "Prasanth S.P",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/",
+  "jobTitle": "Founder & Lead Engineer, Agentic AI developer",
+  "worksFor": {
+   "@type": "Organization",
+   "name": "Kowsalya Groups"
+  },
+  "sameAs": [
+   "https://www.linkedin.com/in/prasanth-s-a093a7109/",
+   "https://github.com/prasanth-sundararajan"
+  ]
+ },
+ "dateModified": "2026-11-20",
+ "inLanguage": "en",
+ "keywords": "Python 3.11, FastAPI, SQLAlchemy, Alembic, PostgreSQL, React, Agentic AI developer, AI automation freelancer, India",
+ "about": {
+  "@type": "SoftwareApplication",
+  "name": "SlotEase",
+  "url": "https://www.kowsalyagroups.com/techstack/appointment-booking/",
+  "applicationCategory": "BusinessApplication"
+ }
+}
+</script>
+</head>
+<body data-root="../">
+<header><div class="wrap"><nav aria-label="Main">
+  <a class="logo" href="../index.html"><i>P</i><span>Prasanth Sundararajan<small>KOWSALYA GROUPS</small></span></a>
+  <div class="links"><a href="../index.html#about">About</a><a href="../index.html#services">Services</a><a href="../index.html#agentic">Agentic AI</a><a href="../index.html#work">Work</a><a href="../blog/index.html">Insights</a><a href="../index.html#process">Process</a></div>
+  <a class="btn btn-primary" href="../index.html#contact">Let's talk →</a>
+</nav></div></header>
+
+<main id="top" class="cs">
+<div class="cs-hero"><div class="wrap">
+  <div class="crumbs reveal"><a href="../index.html">Home</a> / <a href="../index.html#work">Work</a> / SlotEase</div>
+  <div class="grid">
+    <div class="reveal">
+      <div class="eyebrow">Case study · Full-stack SaaS · Payments · Real-time</div>
+      <h1>SlotEase: <span class="grad">appointment booking</span> that cannot double-book</h1>
+      <p class="lede">A multi-business booking platform for salons, clinics and local services. Customers pick a slot, pay a small deposit through Dodo Payments, and the booking lands in the staff member&#x27;s Google Calendar. I designed, built, tested and deployed it end to end.</p>
+      <div class="cta"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/appointment-booking/" target="_blank" rel="noopener">Open live app ↗</a><a class="btn btn-ghost" href="https://github.com/prasanth-sundararajan/appointment-booking" target="_blank" rel="noopener">Code on GitHub</a></div>
+    </div>
+    <a class="shot reveal" href="https://www.kowsalyagroups.com/techstack/appointment-booking/" target="_blank" rel="noopener"><img src="../assets/slotease.png" alt="SlotEase live app screenshot" width="1440" height="900"></a>
+  </div>
+  <dl class="facts reveal"><div><dt>Type</dt><dd>Full-stack SaaS</dd></div><div><dt>My role</dt><dd>Architecture, build, tests, deployment</dd></div><div><dt>Core stack</dt><dd>FastAPI · React · PostgreSQL</dd></div><div><dt>Status</dt><dd>Live in production</dd></div></dl>
+</div></div>
+
+<section id="challenge"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">01 · Challenge</div><h2>The problem worth solving</h2></div>
+  <div class="body reveal"><p>Salons and clinics lose money to no-shows, double-bookings and the endless “is 4 pm free?” messages. A booking tool that fixes this has to get several hard things right at the same time.</p><p>Two customers must never get the same staff member at the same time, even when they click in the same second. A slot should be held while the customer pays, but not forever. Every open browser should see a slot disappear the moment it is taken. And a browser redirect that says “paid” is not proof of payment, so the booking must only be confirmed by the payment provider itself.</p></div>
+</div></section>
+
+<section id="approach"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">02 · Approach</div><h2>How I built it</h2></div>
+  <ul class="ticks reveal">
+<li><b>The database is the final referee.</b> A PostgreSQL exclusion constraint on <code>(staff_id, tstzrange(start_at, end_at))</code> for active bookings makes an overlap impossible, whatever the application code does. A violation becomes a clean “slot taken” response, and the service tries the next free staff member.</li>
+<li><b>A 10-minute hold, not a lock.</b> A new booking is inserted as <code>pending_payment</code> with <code>hold_expires_at</code>. It occupies the slot while the customer pays. A scheduler job runs every minute, expires lapsed holds and frees the slot.</li>
+<li><b>Payments are confirmed by the webhook only.</b> Dodo Payments webhooks are verified with the Standard Webhooks signature and processed idempotently by event id. A late payment for an expired hold is re-confirmed if the slot is still free, and refunded automatically if it is not.</li>
+<li><b>Real-time over WebSockets.</b> A public slot channel pushes <code>slot.taken</code> and <code>slot.freed</code> to every open booking page. The owner dashboard channel uses a short-lived, single-use ticket so long-lived tokens never appear in URLs.</li>
+<li><b>Two-way Google Calendar sync.</b> Confirmed bookings are pushed to the staff member's calendar, and their busy times are pulled back so personal events block slots too.</li>
+<li><b>Business rules per business.</b> Each business sets its deposit percentage (15% by default) and a cancellation cutoff that decides whether a cancellation is refunded.</li>
+  </ul>
+</div></section>
+
+<section id="architecture"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">03 · Architecture</div><h2>How the pieces fit</h2></div>
+  <figure class="reveal"><div class="diagram"><svg viewBox="0 0 960 420" role="img" aria-labelledby="dg-title dg-desc" xmlns="http://www.w3.org/2000/svg"><title id="dg-title">SlotEase architecture</title><desc id="dg-desc">React app talks to a FastAPI backend over HTTPS and WebSockets. FastAPI stores bookings in PostgreSQL guarded by an exclusion constraint, syncs Google Calendar, creates Dodo checkouts and confirms bookings from signed Dodo webhooks.</desc><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#c084fc"/></marker><marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#f472b6"/></marker></defs>
+<rect class="dg-hl" x="20" y="70" width="200" height="250" rx="14"/>
+<text class="dg-t" x="120.0" y="166" text-anchor="middle">React + TypeScript</text>
+<text class="dg-s" x="120.0" y="186" text-anchor="middle">Vite single-page app</text>
+<text class="dg-s" x="120.0" y="204" text-anchor="middle">Customer booking page</text>
+<text class="dg-s" x="120.0" y="220" text-anchor="middle">Owner &amp; staff dashboard</text>
+<text class="dg-s" x="120.0" y="238" text-anchor="middle">Google sign-in</text>
+<rect class="dg-group" x="310" y="20" width="320" height="335" rx="18"/>
+<text class="dg-t" x="470" y="48" text-anchor="middle">FastAPI backend</text>
+<rect class="dg-box" x="330" y="64" width="280" height="46" rx="14"/>
+<text class="dg-t" x="470.0" y="83" text-anchor="middle">REST API</text>
+<text class="dg-s" x="470.0" y="104" text-anchor="middle">JWT auth · Google OAuth</text>
+<rect class="dg-box" x="330" y="120" width="280" height="46" rx="14"/>
+<text class="dg-t" x="470.0" y="139" text-anchor="middle">Slot engine</text>
+<text class="dg-s" x="470.0" y="160" text-anchor="middle">hours, time off, busy blocks</text>
+<rect class="dg-box" x="330" y="176" width="280" height="46" rx="14"/>
+<text class="dg-t" x="470.0" y="195" text-anchor="middle">Booking service</text>
+<text class="dg-s" x="470.0" y="216" text-anchor="middle">10-minute hold · refund rules</text>
+<rect class="dg-box" x="330" y="232" width="280" height="46" rx="14"/>
+<text class="dg-t" x="470.0" y="251" text-anchor="middle">WebSocket hub</text>
+<text class="dg-s" x="470.0" y="272" text-anchor="middle">public slot + owner dashboard channels</text>
+<rect class="dg-box" x="330" y="288" width="280" height="46" rx="14"/>
+<text class="dg-t" x="470.0" y="307" text-anchor="middle">Scheduler</text>
+<text class="dg-s" x="470.0" y="328" text-anchor="middle">expire holds · retry refunds · sync</text>
+<rect class="dg-hl" x="730" y="20" width="210" height="100" rx="14"/>
+<text class="dg-t" x="835.0" y="58" text-anchor="middle">PostgreSQL</text>
+<text class="dg-s" x="835.0" y="78" text-anchor="middle">EXCLUDE USING gist</text>
+<text class="dg-s" x="835.0" y="96" text-anchor="middle">(staff_id =, tstzrange &amp;&amp;)</text>
+<rect class="dg-box" x="730" y="150" width="210" height="80" rx="14"/>
+<text class="dg-t" x="835.0" y="186" text-anchor="middle">Google Calendar</text>
+<text class="dg-s" x="835.0" y="207" text-anchor="middle">push bookings · pull busy</text>
+<rect class="dg-out" x="730" y="260" width="210" height="95" rx="14"/>
+<text class="dg-t" x="835.0" y="295" text-anchor="middle">Dodo Payments</text>
+<text class="dg-s" x="835.0" y="316" text-anchor="middle">hosted checkout</text>
+<text class="dg-s" x="835.0" y="333" text-anchor="middle">15% deposit · refunds</text>
+<path class="dg-a" d="M220 87 H328" marker-end="url(#ah)"/>
+<text class="dg-l" x="274" y="79" text-anchor="middle">HTTPS / JSON</text>
+<path class="dg-a" d="M330 255 H222" marker-end="url(#ah)"/>
+<text class="dg-l" x="276" y="247" text-anchor="middle">slot.taken / freed</text>
+<path class="dg-a" d="M630 87 H728" marker-end="url(#ah)"/>
+<text class="dg-l" x="679" y="79" text-anchor="middle">SQLAlchemy</text>
+<path class="dg-a" d="M630 190 H728" marker-end="url(#ah)" marker-start="url(#ah)"/>
+<text class="dg-l" x="679" y="182" text-anchor="middle">events / busy</text>
+<path class="dg-a" d="M630 285 H728" marker-end="url(#ah)"/>
+<text class="dg-l" x="679" y="277" text-anchor="middle">create checkout</text>
+<path class="dg-a pink" d="M728 335 H632" marker-end="url(#ahp)"/>
+<text class="dg-l" x="679" y="327" text-anchor="middle">signed webhook</text>
+<path class="dg-a dash" d="M120 320 V405 H835 V357" marker-end="url(#ah)"/>
+<text class="dg-l" x="478" y="397" text-anchor="middle">customer is redirected to the hosted checkout to pay the deposit</text></svg></div><figcaption class="diagram-note">Solid arrows are server calls; the dashed path is the customer&#x27;s browser going to the hosted checkout. The booking is only confirmed when the signed webhook arrives.</figcaption></figure>
+</div></section>
+
+<section id="features"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">04 · Key features</div><h2>What it does</h2></div>
+  <div class="ag-grid">
+<div class="step reveal"><h3>Public booking page</h3><p>Each business gets its own page: pick a service, a staff member (or anyone free) and a time.</p></div>
+<div class="step reveal"><h3>Staff schedules</h3><p>Working hours, time off and buffers per staff member feed one slot engine.</p></div>
+<div class="step reveal"><h3>Deposits and refunds</h3><p>Deposits through Dodo Payments hosted checkout; refunds follow the business&#x27;s own cutoff rule.</p></div>
+<div class="step reveal"><h3>Live owner dashboard</h3><p>New, confirmed, cancelled and rescheduled bookings appear instantly over WebSockets.</p></div>
+<div class="step reveal"><h3>Google Calendar sync</h3><p>Bookings go to the staff calendar; busy calendar events block slots.</p></div>
+<div class="step reveal"><h3>Secure auth</h3><p>Google sign-in and JWT access tokens with refresh tokens, plus role checks for owners and staff.</p></div>
+  </div>
+</div></section>
+
+<section id="stack"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">05 · Tech stack</div><h2>Built with</h2></div>
+  <div class="pills reveal"><span>Python 3.11</span><span>FastAPI</span><span>SQLAlchemy</span><span>Alembic</span><span>PostgreSQL</span><span>React</span><span>TypeScript</span><span>Vite</span><span>WebSockets</span><span>Dodo Payments</span><span>Google OAuth</span><span>Google Calendar API</span><span>APScheduler</span><span>pytest</span><span>Docker</span></div>
+</div></section>
+
+<section id="result"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">06 · Result</div><h2>What it delivers</h2></div>
+  <figure class="demo" hidden><video src="../assets/videos/slotease.mp4" poster="../assets/slotease.png" muted playsinline controls preload="none"></video><figcaption>SlotEase demo</figcaption></figure>
+  <div class="body reveal"><p>A slot vanishes from other open browsers as soon as it is booked, and the database itself refuses an overlapping booking. Payments are confirmed only by verified webhooks, late payments are reconciled automatically, and refunds follow each business&#x27;s cutoff rule.</p><p>The project ships with 221 automated tests (151 backend and 70 frontend) and 85% backend test coverage, including payments, refunds and concurrency. It runs live behind HTTPS on a self-managed VPS.</p><p>Deep dive: <a class="grad" href="../blog/no-double-booking.html">No double-bookings: how SlotEase guarantees it →</a></p></div>
+  <div class="cta reveal mt"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/appointment-booking/" target="_blank" rel="noopener">Try SlotEase live ↗</a><a class="btn btn-ghost" href="https://github.com/prasanth-sundararajan/appointment-booking" target="_blank" rel="noopener">Read the code</a></div>
+</div></section>
+
+<div class="wrap">
+  <nav class="pager" aria-label="More case studies">
+    <a href="launchscout.html"><small>← Previous case study</small><strong>LaunchScout</strong></a>
+    <a class="next" href="reviewlens.html"><small>Next case study →</small><strong>ReviewLens</strong></a>
+  </nav>
+  <div class="contact reveal">
+    <div class="eyebrow center">Let's build</div>
+    <h2>Want something like <span class="grad">SlotEase</span>?</h2>
+    <p>Tell me the workflow you want automated or the product you want shipped. A free discovery call is the quickest way to find out if it is a fit.</p>
+    <div class="cta"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/appointment-booking/b/prasanth-sundararajan" target="_blank" rel="noopener">Book a free discovery call ↗</a><a class="btn btn-ghost" href="../index.html#contact">Send a message</a></div>
+  </div>
+</div>
+</main>
+
+<footer class="foot"><div class="wrap"><span>© 2026 Prasanth Sundararajan · Kowsalya Groups</span><span><a href="../index.html#work">Work</a> · <a href="../blog/index.html">Insights</a> · <a href="https://www.linkedin.com/in/prasanth-s-a093a7109/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/prasanth-sundararajan" target="_blank" rel="noopener">GitHub</a> · <a href="../index.html#contact">Contact</a></span></div></footer>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

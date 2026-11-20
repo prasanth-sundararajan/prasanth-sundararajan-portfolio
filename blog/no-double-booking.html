@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>No double-bookings with PostgreSQL exclusion constraints, holds and webhooks · Prasanth Sundararajan</title>
+<meta name="description" content="How SlotEase guarantees no double-bookings: a PostgreSQL exclusion constraint, 10-minute slot holds, WebSocket slot updates and Dodo Payments webhooks as the only source of payment truth.">
+<meta name="author" content="Prasanth Sundararajan">
+<meta name="theme-color" content="#07060f">
+<link rel="canonical" href="https://www.kowsalyagroups.com/prasanth/portfolio/blog/no-double-booking.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Prasanth Sundararajan · Kowsalya Groups">
+<meta property="og:title" content="No double-bookings with PostgreSQL exclusion constraints, holds and webhooks · Prasanth Sundararajan">
+<meta property="og:description" content="How SlotEase guarantees no double-bookings: a PostgreSQL exclusion constraint, 10-minute slot holds, WebSocket slot updates and Dodo Payments webhooks as the only source of payment truth.">
+<meta property="og:url" content="https://www.kowsalyagroups.com/prasanth/portfolio/blog/no-double-booking.html">
+<meta property="og:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Prasanth Sundararajan, Agentic AI developer, Kowsalya Groups">
+<meta property="og:locale" content="en_IN">
+<meta property="article:published_time" content="2026-11-20">
+<meta property="article:author" content="Prasanth Sundararajan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="No double-bookings with PostgreSQL exclusion constraints, holds and webhooks · Prasanth Sundararajan">
+<meta name="twitter:description" content="How SlotEase guarantees no double-bookings: a PostgreSQL exclusion constraint, 10-minute slot holds, WebSocket slot updates and Dodo Payments webhooks as the only source of payment truth.">
+<meta name="twitter:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "No double-bookings: Postgres exclusion constraints, slot holds and webhook-confirmed payments",
+ "description": "How SlotEase guarantees no double-bookings: a PostgreSQL exclusion constraint, 10-minute slot holds, WebSocket slot updates and Dodo Payments webhooks as the only source of payment truth.",
+ "url": "https://www.kowsalyagroups.com/prasanth/portfolio/blog/no-double-booking.html",
+ "mainEntityOfPage": "https://www.kowsalyagroups.com/prasanth/portfolio/blog/no-double-booking.html",
+ "image": "https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png",
+ "datePublished": "2026-11-20",
+ "dateModified": "2026-11-20",
+ "inLanguage": "en",
+ "wordCount": 901,
+ "keywords": "PostgreSQL, FastAPI, Payments, Agentic AI developer, AI automation freelancer, India",
+ "author": {
+  "@type": "Person",
+  "name": "Prasanth Sundararajan",
+  "alternateName": "Prasanth S.P",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/",
+  "jobTitle": "Founder & Lead Engineer, Agentic AI developer",
+  "worksFor": {
+   "@type": "Organization",
+   "name": "Kowsalya Groups"
+  },
+  "sameAs": [
+   "https://www.linkedin.com/in/prasanth-s-a093a7109/",
+   "https://github.com/prasanth-sundararajan"
+  ]
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "Kowsalya Groups",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/"
+ }
+}
+</script>
+</head>
+<body data-root="../">
+<header><div class="wrap"><nav aria-label="Main">
+  <a class="logo" href="../index.html"><i>P</i><span>Prasanth Sundararajan<small>KOWSALYA GROUPS</small></span></a>
+  <div class="links"><a href="../index.html#about">About</a><a href="../index.html#services">Services</a><a href="../index.html#agentic">Agentic AI</a><a href="../index.html#work">Work</a><a href="../blog/index.html" aria-current="page">Insights</a><a href="../index.html#process">Process</a></div>
+  <a class="btn btn-primary" href="../index.html#contact">Let's talk →</a>
+</nav></div></header>
+
+<main id="top">
+<article class="article"><div class="wrap"><div class="prose">
+  <div class="crumbs"><a href="../index.html">Home</a> / <a href="index.html">Insights</a></div>
+  <div class="eyebrow">PostgreSQL · FastAPI · Payments</div>
+  <h1>No double-bookings: Postgres exclusion constraints, slot holds and webhook-confirmed payments</h1>
+  <p class="meta">By Prasanth Sundararajan · <time datetime="2026-11-20">20 November 2026</time> · 4 min read</p>
+  <p class="lead">A booking system has one job it must never get wrong: two people cannot book the same person at the same time. This is how <a href="../case-studies/slotease.html">SlotEase</a>, a FastAPI, React and PostgreSQL booking SaaS, guarantees that while also taking deposits and keeping every open browser up to date.</p>
+<h2>Why an application check is not enough</h2>
+<p>The obvious approach is: query for overlapping bookings, and if there are none, insert. Under load that is a race. Two requests run the query at the same moment, both see a free slot, both insert. Locks and serializable transactions can fix it, but the logic is spread across code paths such as booking, rescheduling and late payments, and every new path is a chance to forget.</p>
+<p>The more robust answer is to make the database refuse the overlap itself.</p>
+<h2>An exclusion constraint does the refereeing</h2>
+<p>PostgreSQL exclusion constraints generalise unique constraints: no two rows may satisfy the given operators at the same time. For bookings, “the same staff member” is <code>=</code> and “overlapping time” is <code>&amp;&amp;</code> on a range:</p>
+<pre><code>CREATE EXTENSION IF NOT EXISTS btree_gist;
+
+ALTER TABLE bookings ADD CONSTRAINT ex_bookings_staff_no_overlap
+  EXCLUDE USING gist (
+    staff_id WITH =,
+    tstzrange(start_at, end_at, &#x27;[)&#x27;) WITH &amp;&amp;
+  )
+  WHERE (status IN (&#x27;pending_payment&#x27;, &#x27;confirmed&#x27;));</code></pre>
+<p>Three details matter. <code>btree_gist</code> lets a GiST index handle the plain integer equality. The half-open range <code>'[)'</code> means a 10:00–10:30 booking does not collide with one starting at 10:30. And the <code>WHERE</code> clause makes only active bookings occupy time, so cancelled and expired rows stay in the table for history without blocking anyone. In SQLAlchemy it lives in the model's <code>__table_args__</code>:</p>
+<pre><code>ExcludeConstraint(
+    (column(&quot;staff_id&quot;), &quot;=&quot;),
+    (func.tstzrange(column(&quot;start_at&quot;), column(&quot;end_at&quot;), literal_column(&quot;&#x27;[)&#x27;&quot;)), &quot;&amp;&amp;&quot;),
+    name=&quot;ex_bookings_staff_no_overlap&quot;,
+    using=&quot;gist&quot;,
+    where=text(&quot;status IN (&#x27;pending_payment&#x27;, &#x27;confirmed&#x27;)&quot;),
+)</code></pre>
+<h2>Turning the violation into a good response</h2>
+<p>A violation raises an <code>IntegrityError</code> with SQLSTATE <code>23P01</code>. SlotEase recognises it by that code or the constraint name, and treats it as “slot taken”. When the customer chose “any staff member”, the service tries each free candidate inside a savepoint, so one collision does not roll back the whole request:</p>
+<pre><code>for candidate in free_staff:
+    try:
+        with db.begin_nested():          # SAVEPOINT
+            booking = Booking(staff_id=candidate, status=&quot;pending_payment&quot;,
+                              hold_expires_at=now + timedelta(minutes=10), ...)
+            db.add(booking)
+            db.flush()                   # the constraint is checked here
+        break
+    except IntegrityError as exc:
+        if not is_overlap_error(exc):    # pgcode 23P01
+            raise
+else:
+    raise ConflictError(&quot;This time slot is no longer available&quot;)  # HTTP 409</code></pre>
+<h2>Holds: occupy the slot while the customer pays</h2>
+<p>Customers pay a deposit, which takes time on a hosted checkout page. The booking is inserted immediately as <code>pending_payment</code> with <code>hold_expires_at</code> ten minutes ahead. Because the constraint covers <code>pending_payment</code>, the hold is enforced by the same rule as a confirmed booking. Nobody else can take the slot while you pay.</p>
+<p>A scheduler job runs every minute, marks lapsed holds as <code>expired</code> and fails their pending payments, which frees the slot. The booking path also expires lapsed holds that overlap the requested interval right before inserting, so a customer never waits for the next scheduler tick to get a slot that is really free.</p>
+<h2>Trust the webhook, not the redirect</h2>
+<p>After checkout, the customer's browser is sent back to a success URL. That redirect proves nothing: it can be bookmarked, replayed or simply arrive before the payment settles. SlotEase confirms a booking only when Dodo Payments' webhook arrives. The endpoint verifies the Standard Webhooks signature (the <code>webhook-id</code>, <code>webhook-timestamp</code> and <code>webhook-signature</code> headers) and rejects anything that does not match.</p>
+<p>Webhooks are delivered at least once, so processing is idempotent. Each event id is stored in a <code>webhook_events</code> table with a unique constraint. A duplicate delivery is acknowledged and ignored, and if processing fails the transaction rolls back, event row included, so the provider's retry gets a clean second attempt.</p>
+<h3>The late payment edge case</h3>
+<p>What if the payment succeeds after the hold expired? If the booking is still <code>pending_payment</code>, it still occupies the slot and is simply confirmed. If it already expired, SlotEase tries to flip it back to <code>confirmed</code> inside a savepoint. The exclusion constraint decides: if the slot is still free, the booking is confirmed; if someone else took it, the payment is refunded automatically, and a scheduler retries refunds the provider could not process the first time.</p>
+<h2>WebSockets: make the UI agree with the database</h2>
+<p>The constraint guarantees correctness; WebSockets make it pleasant. Each business has a public slot channel. When a booking is held or confirmed the server broadcasts <code>slot.taken</code>, and when a hold expires or a booking is cancelled it broadcasts <code>slot.freed</code>. Every open booking page updates without a refresh, so most customers never see a 409 at all.</p>
+<p>The owner dashboard has its own channel with booking events. Browsers cannot set headers on a WebSocket, and tokens in URLs end up in proxy logs, so the client first exchanges its access token for a 60-second, single-use ticket and connects with that.</p>
+<p>Events are published only after the database commit, so a browser never hears about a booking that was later rolled back.</p>
+<h2>Takeaways</h2>
+<ul><li>Put the invariant in the database. An exclusion constraint covers every code path, including the ones you add next year.</li><li>Model holds as rows covered by the same constraint, with a clear expiry.</li><li>Only a verified, idempotently processed webhook confirms money.</li><li>Decide in advance what happens to late payments, and let the constraint decide between confirming and refunding.</li><li>Push changes to clients after commit, so the UI rarely has to show a conflict.</li></ul>
+  <div class="callout">
+    <h2>See it running</h2>
+    <p>This post is based on SlotEase, which is live. Read the case study, try the app, or talk to me about building something similar for your business.</p>
+    <div class="cta"><a class="btn btn-primary" href="../case-studies/slotease.html">Read the SlotEase case study →</a><a class="btn btn-ghost" href="https://www.kowsalyagroups.com/techstack/appointment-booking/b/prasanth-sundararajan" target="_blank" rel="noopener">Book a free discovery call ↗</a></div>
+  </div>
+</div></div></article>
+
+<section id="more"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">More insights</div><h2>Keep reading</h2></div>
+  <div class="posts"><a class="post-card" href="self-correcting-data-agent.html"><span class="meta">AutoGen · Agentic AI · pandas</span><h2>How I built a self-correcting data agent with AutoGen</h2><p>Planner, coder, sandboxed executor and reviewer: how DataPilot catches silent wrong numbers and fixes its own code.</p><span class="more">Read →</span></a><a class="post-card" href="crewai-research-crew.html"><span class="meta">CrewAI · Multi-agent · Research</span><h2>Designing a CrewAI research crew that cites its sources</h2><p>Four agents, sequential context, and a guardrail that sends unbacked prices back. Lessons from LaunchScout.</p><span class="more">Read →</span></a></div>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap"><span>© 2026 Prasanth Sundararajan · Kowsalya Groups</span><span><a href="../index.html#work">Work</a> · <a href="../blog/index.html">Insights</a> · <a href="https://www.linkedin.com/in/prasanth-s-a093a7109/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/prasanth-sundararajan" target="_blank" rel="noopener">GitHub</a> · <a href="../index.html#contact">Contact</a></span></div></footer>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How I built a self-correcting data agent with AutoGen · Prasanth Sundararajan</title>
+<meta name="description" content="Design notes from DataPilot: AutoGen planner, coder, sandboxed executor and reviewer agents, rule-based routing, data checks that turn silent wrong numbers into errors, and hard stop conditions.">
+<meta name="author" content="Prasanth Sundararajan">
+<meta name="theme-color" content="#07060f">
+<link rel="canonical" href="https://www.kowsalyagroups.com/prasanth/portfolio/blog/self-correcting-data-agent.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Prasanth Sundararajan · Kowsalya Groups">
+<meta property="og:title" content="How I built a self-correcting data agent with AutoGen · Prasanth Sundararajan">
+<meta property="og:description" content="Design notes from DataPilot: AutoGen planner, coder, sandboxed executor and reviewer agents, rule-based routing, data checks that turn silent wrong numbers into errors, and hard stop conditions.">
+<meta property="og:url" content="https://www.kowsalyagroups.com/prasanth/portfolio/blog/self-correcting-data-agent.html">
+<meta property="og:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Prasanth Sundararajan, Agentic AI developer, Kowsalya Groups">
+<meta property="og:locale" content="en_IN">
+<meta property="article:published_time" content="2026-11-20">
+<meta property="article:author" content="Prasanth Sundararajan">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How I built a self-correcting data agent with AutoGen · Prasanth Sundararajan">
+<meta name="twitter:description" content="Design notes from DataPilot: AutoGen planner, coder, sandboxed executor and reviewer agents, rule-based routing, data checks that turn silent wrong numbers into errors, and hard stop conditions.">
+<meta name="twitter:image" content="https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "How I built a self-correcting data agent with AutoGen",
+ "description": "Design notes from DataPilot: AutoGen planner, coder, sandboxed executor and reviewer agents, rule-based routing, data checks that turn silent wrong numbers into errors, and hard stop conditions.",
+ "url": "https://www.kowsalyagroups.com/prasanth/portfolio/blog/self-correcting-data-agent.html",
+ "mainEntityOfPage": "https://www.kowsalyagroups.com/prasanth/portfolio/blog/self-correcting-data-agent.html",
+ "image": "https://www.kowsalyagroups.com/prasanth/portfolio/assets/og-image.png",
+ "datePublished": "2026-11-20",
+ "dateModified": "2026-11-20",
+ "inLanguage": "en",
+ "wordCount": 978,
+ "keywords": "AutoGen, Agentic AI, pandas, Agentic AI developer, AI automation freelancer, India",
+ "author": {
+  "@type": "Person",
+  "name": "Prasanth Sundararajan",
+  "alternateName": "Prasanth S.P",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/",
+  "jobTitle": "Founder & Lead Engineer, Agentic AI developer",
+  "worksFor": {
+   "@type": "Organization",
+   "name": "Kowsalya Groups"
+  },
+  "sameAs": [
+   "https://www.linkedin.com/in/prasanth-s-a093a7109/",
+   "https://github.com/prasanth-sundararajan"
+  ]
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "Kowsalya Groups",
+  "url": "https://www.kowsalyagroups.com/prasanth/portfolio/"
+ }
+}
+</script>
+</head>
+<body data-root="../">
+<header><div class="wrap"><nav aria-label="Main">
+  <a class="logo" href="../index.html"><i>P</i><span>Prasanth Sundararajan<small>KOWSALYA GROUPS</small></span></a>
+  <div class="links"><a href="../index.html#about">About</a><a href="../index.html#services">Services</a><a href="../index.html#agentic">Agentic AI</a><a href="../index.html#work">Work</a><a href="../blog/index.html" aria-current="page">Insights</a><a href="../index.html#process">Process</a></div>
+  <a class="btn btn-primary" href="../index.html#contact">Let's talk →</a>
+</nav></div></header>
+
+<main id="top">
+<article class="article"><div class="wrap"><div class="prose">
+  <div class="crumbs"><a href="../index.html">Home</a> / <a href="index.html">Insights</a></div>
+  <div class="eyebrow">AutoGen · Agentic AI · pandas</div>
+  <h1>How I built a self-correcting data agent with AutoGen</h1>
+  <p class="meta">By Prasanth Sundararajan · <time datetime="2026-11-20">20 November 2026</time> · 4 min read</p>
+  <p class="lead">The hard part of an AI data analyst is not getting the code to run. It is noticing when the code runs fine and the answer is still wrong. These are the design decisions behind <a href="../case-studies/datapilot.html">DataPilot</a>, a multi-agent AutoGen app that answers business questions about a CSV or Excel file.</p>
+<h2>The real failure mode is quiet</h2>
+<p>On clean demo data, a strong model writes correct pandas almost every time. On a real shop export it does not crash; it quietly drops rows. I built a deliberately messy version of the sample sales data to test this: three date formats in one column (<code>2026-08-02</code>, <code>02/08/2026</code> day-first, <code>02-Aug-2026</code>), prices stored as text like <code>₹1,999</code>, discounts as both <code>10%</code> and <code>0.10</code>, and region names spelled <code>South</code>, <code>south </code> and <code>SOUTH</code>.</p>
+<p>Before I added any checks, runs on that file were often approved with wrong numbers. In one, 67% of the rows had silently disappeared because of a date parse. A reviewer agent cannot catch that by reading the output, because the output looks perfectly reasonable.</p>
+<h2>Four roles, one job each</h2>
+<p>DataPilot splits the work across four AutoGen agents plus the human:</p>
+<ul><li><strong>Planner</strong> sees the question, the column schema and five sample rows, never the full data, and writes a 3–6 step plan.</li><li><strong>Coder</strong> writes one complete pandas and matplotlib script, and rewrites it on an error or on feedback.</li><li><strong>Executor</strong> runs the script in a sandbox, prefixes the result with <code>STATUS: OK</code> or <code>STATUS: ERROR</code>, saves <code>analysis.py</code> and tracks the charts.</li><li><strong>Reviewer</strong> checks every part of the question against the printed numbers and chart labels, then replies <code>FEEDBACK:</code> with concrete fixes, or gives the final answer ending in <code>APPROVED</code>.</li><li><strong>You</strong>, through a <code>UserProxyAgent</code>, approve the answer or ask a follow-up in the same session.</li></ul>
+<p>Keeping the full data away from the LLM is deliberate. Every number in the answer comes from code that ran, so it can be reproduced: re-running the saved <code>analysis.py</code> gives exactly the same numbers.</p>
+<h2>Route with rules, not vibes</h2>
+<p>AutoGen's <code>SelectorGroupChat</code> can ask an LLM who should speak next. That works, but for this loop the right next speaker is fully determined by the last message, so I use a plain function:</p>
+<pre><code>def rules_selector(messages):
+    if not messages:
+        return &quot;Planner&quot;
+    last = messages[-1]
+    src, text = last.source, str(last.content)
+    if src == &quot;Planner&quot;:
+        return &quot;Coder&quot;
+    if src == &quot;Coder&quot;:
+        return &quot;Executor&quot;
+    if src == &quot;Executor&quot;:
+        return &quot;Reviewer&quot; if text.startswith(&quot;STATUS: OK&quot;) else &quot;Coder&quot;
+    if src == &quot;Reviewer&quot;:
+        return &quot;Coder&quot;   # feedback goes back to the code
+    return &quot;Planner&quot;     # a new user question</code></pre>
+<p>It is cheaper, faster and easier to test than LLM selection. The LLM-based selector and a <code>RoundRobinGroupChat</code> are still available as options in the app, which made it easy to compare them.</p>
+<h2>Make the sandbox the critic</h2>
+<p>The fix for quiet failures was to turn them into loud ones. The sandbox gives the Coder a <code>data_check()</code> helper it must call after cleaning. It compares the cleaned frame with a pristine copy of the loaded file and raises a normal Python exception when something looks wrong:</p>
+<pre><code>def data_check(raw_rows, df, group_cols=(), date_col=None, max_drop=0.02):
+    problems = []
+    dropped = raw_rows - len(df)
+    if raw_rows and dropped / raw_rows &gt; max_drop:
+        problems.append(f&quot;{dropped:,} of {raw_rows:,} rows were dropped&quot;)
+    for col in group_cols:   # &#x27;North&#x27; vs &#x27;north &#x27; counted as two groups
+        seen = {}
+        for v in df[col].dropna().astype(str).unique():
+            seen.setdefault(v.strip().lower(), []).append(v)
+        if any(len(v) &gt; 1 for v in seen.values()):
+            problems.append(f&quot;column {col!r} has the same value spelled differently&quot;)
+    if date_col is not None and df[date_col].isna().any():
+        problems.append(f&quot;values in {date_col!r} could not be parsed&quot;)
+    # (the real version also detects day/month swaps against the raw strings)
+    if problems:
+        raise ValueError(&quot;DATA CHECK failed: &quot; + &quot; | &quot;.join(problems))</code></pre>
+<p>Because the failure is a real traceback, the existing loop handles it: the Executor reports <code>STATUS: ERROR</code>, the router sends it to the Coder, and the Coder reads a precise message such as <em>“1,496 ISO dates were parsed with day and month swapped”</em> together with a hint (<code>pd.to_datetime(col, format='mixed', dayfirst=True)</code>). The same trick enforces chart quality: a patched <code>savefig</code> fails if a chart has no title, no axis labels or no units.</p>
+<p>The sandbox also blocks unsafe calls such as subprocesses, network access and file deletes, and can run inside a Docker container, which is how the public app runs it.</p>
+<h2>Stop conditions are part of the design</h2>
+<p>An agent loop without a hard stop is a billing incident waiting to happen. DataPilot's termination is a union of three conditions:</p>
+<pre><code>termination = (
+    TextMentionTermination(&quot;APPROVED&quot;, sources=[&quot;Reviewer&quot;])
+    | FunctionalTermination(reviewer_approved)   # full final-answer format
+    | MaxMessageTermination(12)
+)</code></pre>
+<p>The second condition exists because models sometimes send a complete, correct final answer and forget the magic word. The third guarantees the run ends. On top of that, the public deployment allows only a few live runs per day, counted when a run starts.</p>
+<h2>What the numbers looked like</h2>
+<p>With the checks in place, I ran the same hard question on the messy file six times: <em>which region missed its September revenue target by the most, and by how much?</em> It answered correctly six out of six times, and in four of those runs the agents hit at least one real data-check failure and fixed it on their own. Model choice mattered too: a cheaper model for the Coder produced worse results than one strong model for every role, so the defaults use one model with per-agent overrides.</p>
+<h2>Takeaways</h2>
+<ul><li>Give each agent one job and a strict output format, such as <code>STATUS:</code>, <code>FEEDBACK:</code> or <code>APPROVED</code>, so routing can be plain code.</li><li>Do not ask a reviewer to spot what it cannot see. Turn domain mistakes into exceptions inside the sandbox.</li><li>Keep the numbers in code and the language in the LLM, and save the code so every answer is reproducible.</li><li>Always ship a hard stop and a spend cap.</li></ul>
+  <div class="callout">
+    <h2>See it running</h2>
+    <p>This post is based on DataPilot, which is live. Read the case study, try the app, or talk to me about building something similar for your business.</p>
+    <div class="cta"><a class="btn btn-primary" href="../case-studies/datapilot.html">Read the DataPilot case study →</a><a class="btn btn-ghost" href="https://www.kowsalyagroups.com/techstack/appointment-booking/b/prasanth-sundararajan" target="_blank" rel="noopener">Book a free discovery call ↗</a></div>
+  </div>
+</div></div></article>
+
+<section id="more"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">More insights</div><h2>Keep reading</h2></div>
+  <div class="posts"><a class="post-card" href="crewai-research-crew.html"><span class="meta">CrewAI · Multi-agent · Research</span><h2>Designing a CrewAI research crew that cites its sources</h2><p>Four agents, sequential context, and a guardrail that sends unbacked prices back. Lessons from LaunchScout.</p><span class="more">Read →</span></a><a class="post-card" href="no-double-booking.html"><span class="meta">PostgreSQL · FastAPI · Payments</span><h2>No double-bookings: Postgres exclusion constraints, slot holds and webhook-confirmed payments</h2><p>An exclusion constraint, a 10-minute hold, WebSockets and webhook-only confirmation: the booking core of SlotEase.</p><span class="more">Read →</span></a></div>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap"><span>© 2026 Prasanth Sundararajan · Kowsalya Groups</span><span><a href="../index.html#work">Work</a> · <a href="../blog/index.html">Insights</a> · <a href="https://www.linkedin.com/in/prasanth-s-a093a7109/" target="_blank" rel="noopener">LinkedIn</a> · <a href="https://github.com/prasanth-sundararajan" target="_blank" rel="noopener">GitHub</a> · <a href="../index.html#contact">Contact</a></span></div></footer>
+
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
