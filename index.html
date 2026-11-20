@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PrasanthAI · Kowsalya Groups</title>
+<meta name="description" content="PrasanthAI: Prasanth S.P, founder and lead engineer at Kowsalya Groups. Four live products: agentic AI, generative AI and full-stack SaaS.">
+<meta name="theme-color" content="#07060f">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07060f;--panel:rgba(255,255,255,.04);--line:rgba(255,255,255,.09);--ink:#f4f2ff;--muted:#a7a3c2;--pink:#ec4899;--violet:#8b5cf6;--grad:linear-gradient(90deg,var(--pink),var(--violet))}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font:16px/1.65 Inter,system-ui,sans-serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(60vw 50vh at 45% 5%,rgba(91,52,190,.45),transparent 70%),radial-gradient(40vw 50vh at 95% 70%,rgba(190,24,93,.22),transparent 70%),radial-gradient(40vw 40vh at 0% 90%,rgba(76,29,149,.25),transparent 70%)}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+h1,h2,h3{font-family:"Plus Jakarta Sans",Inter,sans-serif;line-height:1.1;letter-spacing:-.02em}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.eyebrow{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:#d16dd0}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--grad)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:600;font-size:15px;transition:transform .2s,box-shadow .2s}
+.btn-primary{background:var(--grad);box-shadow:0 8px 30px rgba(236,72,153,.35)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(139,92,246,.45)}
+.btn-ghost{border:1px solid var(--line);background:var(--panel)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.25)}
+:focus-visible{outline:2px solid var(--violet);outline-offset:3px}
+/* nav */
+header{position:sticky;top:0;z-index:10;backdrop-filter:blur(14px);background:rgba(7,6,15,.6);border-bottom:1px solid var(--line)}
+nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700}
+.logo i{width:34px;height:34px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-style:normal;font-size:14px}
+.logo small{display:block;font-size:10px;letter-spacing:.25em;color:var(--muted);font-weight:500}
+.links{display:flex;gap:28px;font-size:14px;color:var(--muted)}
+.links a:hover{color:var(--ink)}
+/* hero */
+.hero{min-height:88vh;display:flex;align-items:center;padding:80px 0}
+.hero h1{font-size:clamp(40px,6.5vw,76px);font-weight:800;margin:18px 0 22px;max-width:900px}
+.hero p{font-size:18px;color:var(--muted);max-width:620px;margin-bottom:34px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+section{padding:96px 0}
+.head{max-width:680px;margin-bottom:48px}
+.head h2{font-size:clamp(30px,4vw,46px);margin:14px 0 12px}
+.head p{color:var(--muted)}
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:26px;border:1px solid var(--line);border-radius:20px;background:var(--panel)}
+.stat b{display:block;font:800 40px/1 "Plus Jakarta Sans",sans-serif;margin-bottom:8px}
+.stat span{color:var(--muted);font-size:14px}
+/* projects */
+.project{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;margin-bottom:110px}
+.project:nth-child(even) .shot{order:2}
+.shot{border-radius:22px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.5);background:#0f0d1f;aspect-ratio:16/10}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .6s}
+.shot:hover img{transform:scale(1.03)}
+.tag{font-size:12px;font-weight:600;color:#c4b5fd;letter-spacing:.08em;text-transform:uppercase}
+.project h3{font-size:clamp(28px,3vw,38px);margin:10px 0 18px}
+.story{display:grid;gap:14px;margin-bottom:22px}
+.story div{padding-left:16px;border-left:2px solid rgba(139,92,246,.45)}
+.story strong{display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#f0abfc;margin-bottom:2px}
+.story p{color:var(--muted);font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chips span{font-size:12px;padding:5px 11px;border-radius:999px;border:1px solid var(--line);background:var(--panel);color:#d4d0ee}
+/* process */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.step{padding:26px;border-radius:20px;border:1px solid var(--line);background:var(--panel)}
+.step em{font-style:normal;font:800 14px "Plus Jakarta Sans";color:#f0abfc}
+.step h3{font-size:19px;margin:10px 0 8px}
+.step p{color:var(--muted);font-size:14px}
+/* testimonials */
+.quotes{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.quote{padding:28px;border-radius:20px;border:1px solid var(--line);background:linear-gradient(160deg,rgba(139,92,246,.10),rgba(255,255,255,.02))}
+.quote p{font-size:16px;margin-bottom:16px}
+.quote footer{font-size:13px;color:var(--muted)}
+.quote.add{display:grid;place-items:center;text-align:center;border-style:dashed;color:var(--muted)}
+/* contact */
+.contact{text-align:center;padding:72px 24px;border-radius:28px;border:1px solid var(--line);background:radial-gradient(80% 120% at 50% 0%,rgba(139,92,246,.35),rgba(236,72,153,.08) 60%,transparent)}
+.contact h2{font-size:clamp(30px,4.5vw,52px);margin:14px 0 14px}
+.contact p{color:var(--muted);max-width:560px;margin:0 auto 30px}
+.contact .cta{justify-content:center}
+.foot{padding:36px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--line);margin-top:96px}
+.foot .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+/* reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+@media (max-width:900px){.links{display:none}.stats,.steps{grid-template-columns:repeat(2,1fr)}.project{grid-template-columns:1fr;gap:28px}.project:nth-child(even) .shot{order:0}.quotes{grid-template-columns:1fr}section{padding:72px 0}}
+@media (max-width:480px){.stats,.steps{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav aria-label="Main">
+  <a class="logo" href="#top"><i>P</i><span>PrasanthAI<small>KOWSALYA GROUPS</small></span></a>
+  <div class="links"><a href="#work">Work</a><a href="#impact">Impact</a><a href="#process">Process</a><a href="#voices">Voices</a></div>
+  <a class="btn btn-primary" href="#contact">Let's talk →</a>
+</nav></div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow reveal">Founder &amp; Lead Engineer · Kowsalya Groups</div>
+  <h1 class="reveal">I turn messy business problems into <span class="grad">live AI products</span> people can use today.</h1>
+  <p class="reveal">I'm Prasanth S.P. At Kowsalya Groups I design, build and ship agentic AI, generative AI and full-stack SaaS, from the first idea to a secure production deployment. Every project below is live. Click in and try it.</p>
+  <div class="cta reveal"><a class="btn btn-primary" href="#work">Explore the work →</a><a class="btn btn-ghost" href="#contact">Start a project</a></div>
+</div></section>
+
+<section id="impact"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">Achievements</div><h2>Shipped, tested, <span class="grad">in production</span></h2><p>These numbers come straight from the projects themselves.</p></div>
+  <div class="stats">
+    <div class="stat reveal"><b class="grad">4</b><span>Live products on one self-managed VPS behind HTTPS</span></div>
+    <div class="stat reveal"><b class="grad">3</b><span>Agent frameworks in production: LangChain, AutoGen, CrewAI</span></div>
+    <div class="stat reveal"><b class="grad">221</b><span>Automated tests in SlotEase (151 backend + 70 frontend)</span></div>
+    <div class="stat reveal"><b class="grad">85%</b><span>Backend test coverage, with payments, refunds and concurrency covered</span></div>
+  </div>
+</div></section>
+
+<section id="work"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">Selected work</div><h2>Four problems. <span class="grad">Four live answers.</span></h2><p>Each project starts with a real pain point, then a deliberate build, then a result you can open in your browser.</p></div>
+
+  <article class="project">
+    <a class="shot reveal" href="https://www.kowsalyagroups.com/techstack/appointment-booking/" target="_blank" rel="noopener"><img src="assets/slotease.png" alt="SlotEase booking app home page" loading="lazy"></a>
+    <div class="reveal">
+      <div class="tag">Full-stack SaaS · Payments · Real-time</div>
+      <h3>SlotEase: <span class="grad">appointment booking</span></h3>
+      <div class="story">
+        <div><strong>The problem</strong><p>Salons and clinics lose money to no-shows, double-bookings and endless "is 4 pm free?" messages.</p></div>
+        <div><strong>What I built</strong><p>A multi-business booking platform. Owners get a public booking page, staff schedules and a live dashboard. Customers pay a 15% deposit through Dodo Payments, and Google Calendar syncs both ways.</p></div>
+        <div><strong>The result</strong><p>A slot vanishes from other browsers the moment it's booked, and the database itself refuses double-bookings. Refunds follow the business's own cutoff rule.</p></div>
+      </div>
+      <div class="chips"><span>FastAPI</span><span>React + TypeScript</span><span>PostgreSQL</span><span>WebSockets</span><span>Dodo Payments</span><span>Google OAuth</span><span>Docker</span></div>
+      <div class="cta"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/appointment-booking/" target="_blank" rel="noopener">Open live app ↗</a><a class="btn btn-ghost" href="https://github.com/prasanth-sundararajan/appointment-booking" target="_blank" rel="noopener">Code</a></div>
+    </div>
+  </article>
+
+  <article class="project">
+    <a class="shot reveal" href="https://www.kowsalyagroups.com/techstack/ReviewLens/" target="_blank" rel="noopener"><img src="assets/reviewlens.png" alt="ReviewLens insights dashboard" loading="lazy"></a>
+    <div class="reveal">
+      <div class="tag">Generative AI · LangChain</div>
+      <h3>ReviewLens: <span class="grad">feedback analyzer</span></h3>
+      <div class="story">
+        <div><strong>The problem</strong><p>Hundreds of customer reviews pile up every week, and nobody has time to read them, so the useful signals get lost.</p></div>
+        <div><strong>What I built</strong><p>A LangChain pipeline that tags, scores and prioritises every review, then writes a weekly report.</p></div>
+        <div><strong>The result</strong><p>A manager can act on a week of feedback in about five minutes.</p></div>
+      </div>
+      <div class="chips"><span>LangChain</span><span>LLMs</span><span>Streamlit</span><span>Docker</span></div>
+      <div class="cta"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/ReviewLens/" target="_blank" rel="noopener">Open live app ↗</a></div>
+    </div>
+  </article>
+
+  <article class="project">
+    <a class="shot reveal" href="https://www.kowsalyagroups.com/techstack/datapilot/" target="_blank" rel="noopener"><img src="assets/datapilot.jpg" alt="DataPilot final answer with charts" loading="lazy"></a>
+    <div class="reveal">
+      <div class="tag">Agentic AI · AutoGen</div>
+      <h3>DataPilot: <span class="grad">self-correcting analyst</span></h3>
+      <div class="story">
+        <div><strong>The problem</strong><p>Business teams have data and questions, but they wait days for an analyst to write the code.</p></div>
+        <div><strong>What I built</strong><p>A team of AutoGen agents that plans, writes Python, runs it in a sandbox, fixes its own errors and reviews the work.</p></div>
+        <div><strong>The result</strong><p>Ask in plain English and get an answer with charts, a re-runnable <code>analysis.py</code> and a one-page PDF.</p></div>
+      </div>
+      <div class="chips"><span>AutoGen</span><span>Multi-agent</span><span>Code sandbox</span><span>Python</span></div>
+      <div class="cta"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/datapilot/" target="_blank" rel="noopener">Open live app ↗</a></div>
+    </div>
+  </article>
+
+  <article class="project">
+    <a class="shot reveal" href="https://www.kowsalyagroups.com/techstack/launchscout/" target="_blank" rel="noopener"><img src="assets/launchscout.png" alt="LaunchScout research form" loading="lazy"></a>
+    <div class="reveal">
+      <div class="tag">Agentic AI · CrewAI</div>
+      <h3>LaunchScout: <span class="grad">competitor research crew</span></h3>
+      <div class="story">
+        <div><strong>The problem</strong><p>Before launching, founders spend weeks hunting down competitors, prices and customer complaints.</p></div>
+        <div><strong>What I built</strong><p>Four CrewAI agents that research the market with live search, scraping and Google Maps reviews.</p></div>
+        <div><strong>The result</strong><p>A sourced competitor report with the market gap, a recommended positioning and a 30-day launch plan.</p></div>
+      </div>
+      <div class="chips"><span>CrewAI</span><span>Serper search</span><span>Web scraping</span><span>Multi-agent</span></div>
+      <div class="cta"><a class="btn btn-primary" href="https://www.kowsalyagroups.com/techstack/launchscout/" target="_blank" rel="noopener">Open live app ↗</a></div>
+    </div>
+  </article>
+</div></section>
+
+<section id="process"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">How I work</div><h2>From idea to <span class="grad">live link</span></h2></div>
+  <div class="steps">
+    <div class="step reveal"><em>01</em><h3>Understand</h3><p>Pin down the business pain and what "done" looks like before writing code.</p></div>
+    <div class="step reveal"><em>02</em><h3>Design</h3><p>Choose the right stack: agents, LLM pipelines or classic SaaS.</p></div>
+    <div class="step reveal"><em>03</em><h3>Build &amp; test</h3><p>Typed code, automated tests, and security review for payments and auth.</p></div>
+    <div class="step reveal"><em>04</em><h3>Ship</h3><p>Dockerised, behind HTTPS, deployed and live, with a link you can share.</p></div>
+  </div>
+</div></section>
+
+<section id="voices"><div class="wrap">
+  <div class="head reveal"><div class="eyebrow">Testimonials</div><h2>What each project <span class="grad">delivers</span></h2><p>Each card describes the outcome a project is built for. Client feedback will be added here as it comes in.</p></div>
+  <!-- To add a real testimonial: copy a .quote block, put the client's exact words in <p>, and their name and role in <footer>. -->
+  <div class="quotes">
+    <figure class="quote reveal"><p>"No more double-bookings or chasing no-shows. Customers book a slot, pay a small deposit, and it lands in my calendar."</p><footer>The outcome SlotEase is built for · salon &amp; clinic owners</footer></figure>
+    <figure class="quote reveal"><p>"Instead of reading 300 reviews, I read one page and know exactly what to fix this week."</p><footer>The outcome ReviewLens is built for · store managers</footer></figure>
+    <figure class="quote reveal"><p>"I asked a question in plain English and got charts, the code and a PDF without waiting on an analyst."</p><footer>The outcome DataPilot is built for · business teams</footer></figure>
+    <figure class="quote reveal"><p>"A sourced competitor report and a 30-day launch plan in one run, instead of weeks of research."</p><footer>The outcome LaunchScout is built for · founders</footer></figure>
+    <div class="quote add reveal"><p>Worked with Kowsalya Groups?<br><a class="grad" href="#contact">Share your experience →</a></p></div>
+  </div>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <div class="contact reveal">
+    <div class="eyebrow" style="justify-content:center">Let's build</div>
+    <h2>Got a problem worth <span class="grad">automating?</span></h2>
+    <p>Tell me what slows your business down. I'll come back with a plan for an AI agent, a pipeline or a full product that solves it.</p>
+    <div class="cta"><a class="btn btn-primary" href="mailto:prasanthspbio@gmail.com?subject=Project%20enquiry">Email me →</a><a class="btn btn-ghost" href="https://github.com/prasanth-sundararajan" target="_blank" rel="noopener">GitHub</a></div>
+  </div>
+</div></section>
+</main>
+
+<footer class="foot"><div class="wrap"><span>© 2026 PrasanthAI · Kowsalya Groups</span><span>All projects live at kowsalyagroups.com/techstack</span></div></footer>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
