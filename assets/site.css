@@ -233,3 +233,6 @@ details p{color:var(--muted);margin-top:10px;font-size:15px}
 .booker-form .hp{position:absolute;left:-9999px;width:1px;height:1px}
 .booker-msg{font-size:14px;color:#fda4af;min-height:1em}.booker-done h3{font-size:22px}.booker-done p{color:var(--muted)}
 @media (max-width:640px){.booker{padding:20px}.booker-row{grid-template-columns:1fr}}
+
+.budget-row{display:grid;grid-template-columns:minmax(150px,.9fr) minmax(0,1.2fr);gap:8px}.budget-row .currency-pick{padding-left:12px;padding-right:30px;font-size:14px}
+@media (max-width:480px){.budget-row{grid-template-columns:1fr}}

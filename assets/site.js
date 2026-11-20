@@ -222,39 +222,56 @@
 })();
 
 
-// Contact form: show budget ranges in the visitor's local currency.
+
+// Contact form: budget ranges in a selectable currency (defaults to the visitor's country).
 (function () {
   var sel = document.getElementById('cf-budget');
   if (!sel) return;
-  var tz = '', lang = (navigator.language || 'en-US');
+  var C = {
+    INR: { loc: 'en-IN', label: '₹ INR · India', t: [25000, 100000, 300000] },
+    USD: { loc: 'en-US', label: '$ USD · Global', t: [500, 2000, 5000] },
+    EUR: { loc: 'de-DE', label: '€ EUR · Europe', t: [500, 2000, 5000] },
+    GBP: { loc: 'en-GB', label: '£ GBP · UK', t: [400, 1500, 4000] },
+    AED: { loc: 'en-AE', label: 'AED · UAE', t: [2000, 7500, 18000] },
+    AUD: { loc: 'en-AU', label: 'A$ AUD', t: [750, 3000, 7500] },
+    CAD: { loc: 'en-CA', label: 'C$ CAD', t: [700, 2800, 7000] },
+    SGD: { loc: 'en-SG', label: 'S$ SGD', t: [700, 2700, 6700] }
+  };
+  var tz = '', lang = navigator.language || 'en-US';
   try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) { tz = ''; }
   var region = (lang.split('-')[1] || '').toUpperCase();
   var EURO = ['DE','FR','ES','IT','NL','BE','AT','IE','PT','FI','GR','LU','SK','SI','EE','LV','LT','CY','MT','HR'];
-  var cur, loc, tiers;
-  if (tz === 'Asia/Kolkata' || tz === 'Asia/Calcutta' || region === 'IN') {
-    cur = 'INR'; loc = 'en-IN'; tiers = [25000, 100000, 300000];
-  } else if (tz === 'Europe/London' || region === 'GB') {
-    cur = 'GBP'; loc = 'en-GB'; tiers = [400, 1500, 4000];
-  } else if (/^Asia\/(Dubai|Muscat)$/.test(tz) || region === 'AE') {
-    cur = 'AED'; loc = 'en-AE'; tiers = [2000, 7500, 18000];
-  } else if (/^Australia\//.test(tz) || region === 'AU') {
-    cur = 'AUD'; loc = 'en-AU'; tiers = [750, 3000, 7500];
-  } else if (/^Asia\/Singapore$/.test(tz) || region === 'SG') {
-    cur = 'SGD'; loc = 'en-SG'; tiers = [700, 2700, 6700];
-  } else if (/^America\/Toronto|^America\/Vancouver/.test(tz) || region === 'CA') {
-    cur = 'CAD'; loc = 'en-CA'; tiers = [700, 2800, 7000];
-  } else if (EURO.indexOf(region) !== -1 || /^Europe\//.test(tz)) {
-    cur = 'EUR'; loc = lang; tiers = [500, 2000, 5000];
-  } else {
-    return; // keep the default USD ranges
+  function detect() {
+    if (tz === 'Asia/Kolkata' || tz === 'Asia/Calcutta' || region === 'IN') return 'INR';
+    if (tz === 'Europe/London' || region === 'GB') return 'GBP';
+    if (/^Asia\/(Dubai|Muscat)$/.test(tz) || region === 'AE') return 'AED';
+    if (/^Australia\//.test(tz) || region === 'AU') return 'AUD';
+    if (tz === 'Asia/Singapore' || region === 'SG') return 'SGD';
+    if (/^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax)$/.test(tz) || region === 'CA') return 'CAD';
+    if (EURO.indexOf(region) !== -1 || /^Europe\//.test(tz)) return 'EUR';
+    return 'USD';
   }
-  var f;
-  try { f = new Intl.NumberFormat(loc, { style: 'currency', currency: cur, maximumFractionDigits: 0 }); }
-  catch (e) { return; }
-  var a = f.format(tiers[0]), b = f.format(tiers[1]), c = f.format(tiers[2]);
-  var labels = ['Not sure yet', 'Under ' + a, a + ' to ' + b, b + ' to ' + c, c + '+'];
-  var keep = sel.value;
-  while (sel.options.length > 1) sel.remove(1);
-  labels.forEach(function (t) { var o = document.createElement('option'); o.textContent = t; o.value = t + ' (' + cur + ')'; sel.appendChild(o); });
-  if (keep === 'Not sure yet') sel.value = 'Not sure yet (' + cur + ')';
+  // Currency picker placed right after the budget label.
+  var pick = document.createElement('select');
+  pick.id = 'cf-currency'; pick.className = 'currency-pick'; pick.setAttribute('aria-label', 'Currency');
+  Object.keys(C).forEach(function (k) { var o = document.createElement('option'); o.value = k; o.textContent = C[k].label; pick.appendChild(o); });
+  var label = sel.parentNode.querySelector('label[for="cf-budget"]');
+  var row = document.createElement('div'); row.className = 'budget-row';
+  sel.parentNode.insertBefore(row, sel); row.appendChild(pick); row.appendChild(sel);
+  if (label) label.textContent = 'Budget & currency';
+  function render(cur) {
+    var c = C[cur], f;
+    try { f = new Intl.NumberFormat(c.loc, { style: 'currency', currency: cur, maximumFractionDigits: 0 }); }
+    catch (e) { return; }
+    var a = f.format(c.t[0]), b = f.format(c.t[1]), d = f.format(c.t[2]);
+    var prev = sel.selectedIndex;
+    while (sel.options.length > 1) sel.remove(1);
+    ['Not sure yet', 'Under ' + a, a + ' to ' + b, b + ' to ' + d, d + '+'].forEach(function (t) {
+      var o = document.createElement('option'); o.textContent = t; o.value = t + ' (' + cur + ')'; sel.appendChild(o);
+    });
+    if (prev > 0) sel.selectedIndex = prev; // keep the same tier when switching currency
+  }
+  pick.value = detect();
+  render(pick.value);
+  pick.addEventListener('change', function () { render(pick.value); });
 })();
