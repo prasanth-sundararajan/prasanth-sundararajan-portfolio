@@ -118,6 +118,11 @@
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify(data)
     }).then(function (r) {
+      if (r.status === 422) {
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          setError("email", (j && j.error && j.error.message) || "Please check your email address.");
+        });
+      }
       if (!r.ok) throw new Error("HTTP " + r.status);
       form.reset();
       Object.keys(rules).forEach(function (name) { setError(name, ""); });
@@ -210,6 +215,7 @@
       btn.disabled = false;
       if (r.status === 409) { msg.textContent = 'Sorry, that time was just taken. Please pick another.'; var sel = daysEl.querySelector('[aria-selected="true"]'); if (sel) sel.click(); }
       else if (r.status === 429) { msg.textContent = 'Too many attempts. Please try again later, or use the contact form.'; }
+      else if (r.status === 422) { r.json().then(function (j) { msg.textContent = (j && j.error && j.error.message) || 'Please check your details.'; }).catch(function () { msg.textContent = 'Please check your details.'; }); }
       else { msg.textContent = 'Something went wrong. Please try again, or use the contact form below.'; }
     }).catch(function () { btn.disabled = false; msg.textContent = 'Network error. Please try again.'; });
   });
