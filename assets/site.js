@@ -130,3 +130,15 @@
     });
   });
 })();
+
+// Project demo videos: honour reduced-motion and only play while visible.
+(function () {
+  var vids = document.querySelectorAll('.shot video');
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  vids.forEach(function (v) { if (reduce) { v.removeAttribute('autoplay'); v.pause(); } });
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); } else { e.target.pause(); } });
+  }, { threshold: 0.25 });
+  vids.forEach(function (v) { io.observe(v); });
+})();
