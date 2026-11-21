@@ -21,3 +21,7 @@ In `index.html`, copy a `.quote` block inside `#voices`. Put the client's exact 
 ```bash
 scp -r index.html assets root@<vps>:/opt/portfolio/site/
 ```
+
+## License
+
+[MIT](LICENSE) © Prasanth Sundararajan
